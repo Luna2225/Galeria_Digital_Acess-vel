@@ -1,0 +1,367 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+:root {
+  --body-font: 'Poppins', sans-serif;
+  --normal-font-size: 1rem;
+  --big-font-size: 3rem;
+}
+
+
+/* === MENU DA PAGINA === */
+
+#menu {
+  background-color: white;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: #E2E5E5;
+}
+
+#logo {
+  color: #9D7715;
+  font-family: 'Marcellus SC';
+  font-size: 33px;
+  font-weight: 600;
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+}
+
+#nav__link:hover::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 0.18rem;
+  left: 0;
+  top: 2rem;
+  background-color: #9D7715;
+}
+
+#nav__link {
+  position: relative;
+  color: #000;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  color: #AB9267;
+  font-weight: 600;
+}
+
+.active::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 0.18rem;
+  left: 0;
+  top: 2rem;
+  background-color: #9D7715;
+}
+
+
+/* === LOGO DA PAGINA PRINCIPAL === */
+
+#principal {
+  margin-top: 3rem;
+  max-width: 940px;
+}
+
+#principal img {
+  margin-top: 2rem;
+}
+
+.title {
+  margin-top: 2rem;
+  font-size: var(--big-font-size);
+  color: #000;
+}
+
+.title-color {
+  color: #9D7715;
+  font-family: 'Marcellus SC';
+  font-size: 55px;
+  font-weight: 600;
+}
+
+
+/* === TITULOS TELA HOME === */
+
+.section-title {
+  position: relative;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #2A0944;
+  margin-top: 7rem;
+  margin-bottom: 2rem;
+}
+
+.section-title::after {
+  position: absolute;
+  content: "";
+  width: 75px;
+  height: 0.18rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 3.1rem;
+  background-color: #2A0944;
+}
+
+
+/* === CARD DE OBRAS FAVORITAS === */
+
+#card {
+  margin-top: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+
+#card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+#card .img-fluid {
+  width: 20rem;
+  height: 20rem;
+  margin-top: 9px;
+  border-radius: 10px;
+}
+
+#card h2 {
+  color: #AB9267;
+  font-weight: 600;
+}
+
+#card p {
+  color: #AB9267;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* .card-body{
+    margin-top: 9px;
+  } */
+
+
+/* === FOOTER === */
+
+.footer {
+  background-color: rgba(157, 119, 21, 0.72);
+  color: #000;
+  text-align: center;
+  font-weight: 600;
+  padding: 2rem 0;
+  margin-top: 3rem;
+}
+
+.footer__title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer__social {
+  margin-bottom: 2rem;
+}
+
+.footer__icon {
+  font-size: 1.5rem;
+  color: #000;
+  margin: 0 0.6rem;
+}
+
+
+/* === CAROUSEL === */
+
+.carousel {
+  margin-top: 4rem;
+}
+
+.c-item {
+  height: 480px;
+}
+
+.c-img {
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+#button {
+  background-color: #9D7715;
+  border: 0;
+  width: 10rem;
+}
+
+
+/* === DESCRICAO DA OBRA === */
+
+.obra {
+  margin-top: 2rem;
+  height: 300px;
+  width: 250px;
+}
+
+audio {
+  width: 250px;
+  margin-top: 1rem;
+}
+
+#container h1,
+h2 {
+  color: #AB9267;
+  font-weight: 600;
+}
+
+#container p {
+  color: #AB9267;
+}
+
+#recomendacao {
+  margin-top: 1rem;
+
+}
+
+button svg {
+  color: #000;
+}
+
+.card-img-top {
+  height: 26rem;
+}
+
+.img {
+  max-width: 400px;
+}
+
+.img .card-body,
+h1 {
+  margin-top: 0;
+  font-weight: 600;
+}
+
+.im {
+  margin-top: 2rem;
+}
+
+
+/* === EVENTOS === */
+
+.eventos {
+  max-width: 860px;
+  margin-top: 3rem;
+}
+
+.eventos h1 {
+  font-weight: 600;
+}
+
+.card-img {
+  height: 350px;
+}
+
+.card-body {
+  margin-top: 3rem;
+}
+
+
+/* === TELA SOBRE === */
+
+#sobre {
+  margin-top: 4rem;
+  max-width: 940px;
+  text-align: left;
+}
+
+#sobre img {
+  margin-top: 4rem;
+}
+
+.title-sobre {
+  color: #9D7715;
+  font-family: 'Marcellus SC';
+  font-size: 55px;
+  font-weight: 600;
+}
+
+
+/* === CADASTRO, LOGIN E CONTATO === */
+
+.contact__form {
+  max-width: 360px;
+}
+
+.contact__input {
+  width: 100%;
+  font-size: 0.938rem;
+  font-weight: 600;
+  padding: 1rem;
+  border-radius: .5rem;
+  border: 1.5px solid #AB9267;
+  outline: none;
+  margin-bottom: 2rem;
+}
+
+.contact__button {
+  display: block;
+  border: none;
+  outline: none;
+  font-size: var(--normal-font-size);
+  cursor: pointer;
+}
+
+.button {
+  display: inline-block;
+  background-color: #2A0944;
+  color: #fff;
+  padding: .75rem 2.5rem;
+  font-weight: 600;
+  border-radius: .5rem;
+}
+
+.button:hover {
+  box-shadow: 0 10px 36px rgba(0, 0, 0, .15);
+}
+
+.section {
+  position: relative;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #2A0944;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.section::after {
+  position: absolute;
+  content: "";
+  width: 75px;
+  height: 0.18rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 3.1rem;
+  background-color: #2A0944;
+}
+
+
+/* === TELA EVENTOS === */
+
+.tela_eventos{
+  background-color: #E2E5E5;
+  border: 0;
+  margin-top: 2rem;
+}
+
+.tela_eventos img{
+  height: 450px;
+}
+#btn{
+  background-color: #9D7715;
+  border: 0;
+}
+#btn:hover{
+  background-color: #9D7715;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, .15);
+}
