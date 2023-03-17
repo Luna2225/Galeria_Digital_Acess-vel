@@ -29,7 +29,7 @@ body {
 
 }
 
-#nav__link:hover::after {
+.nav-link:hover::after {
   position: absolute;
   content: "";
   width: 100%;
@@ -39,7 +39,7 @@ body {
   background-color: #9D7715;
 }
 
-#nav__link {
+.nav-link {
   position: relative;
   color: #000;
   margin-left: 1rem;
