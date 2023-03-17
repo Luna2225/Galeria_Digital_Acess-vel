@@ -29,7 +29,7 @@ body {
 
 }
 
-#nav__link:hover::after {
+.nav-link:hover::after {
   position: absolute;
   content: "";
   width: 100%;
@@ -39,7 +39,7 @@ body {
   background-color: #9D7715;
 }
 
-#nav__link {
+.nav-link {
   position: relative;
   color: #000;
   margin-left: 1rem;
@@ -198,9 +198,8 @@ a {
 /* === DESCRICAO DA OBRA === */
 
 .obra {
-  margin-top: 2rem;
-  height: 300px;
-  width: 250px;
+  margin-top: 1rem;
+  height: 450px;
 }
 
 audio {
@@ -364,4 +363,12 @@ h1 {
 #btn:hover{
   background-color: #9D7715;
   box-shadow: 0 10px 36px rgba(0, 0, 0, .15);
+}
+
+
+/* === DESCRICAO DO EVENTO === */
+
+.img_even{
+  /* height: 650px; */
+  height: 450px;
 }
