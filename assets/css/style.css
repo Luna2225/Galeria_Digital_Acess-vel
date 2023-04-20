@@ -87,10 +87,11 @@ body {
 /* === TITULOS TELA HOME === */
 
 .section-title {
+  white-space: nowrap;
   position: relative;
   font-size: 2.4rem;
   font-weight: 600;
-  color: #2A0944;
+  color: #AB9267;
   margin-top: 7rem;
   margin-bottom: 2rem;
 }
@@ -104,7 +105,7 @@ body {
   right: 0;
   margin: auto;
   top: 3.1rem;
-  background-color: #2A0944;
+  background-color: #AB9267;
 }
 
 
@@ -312,11 +313,11 @@ h1 {
 
 .button {
   display: inline-block;
-  background-color: #2A0944;
+  background-color: #9D7715;
   color: #fff;
   padding: .75rem 2.5rem;
   font-weight: 600;
-  border-radius: .5rem;
+  border-radius: .6rem;
 }
 
 .button:hover {
