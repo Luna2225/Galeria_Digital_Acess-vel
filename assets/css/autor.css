@@ -1,0 +1,172 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+:root {
+  --body-font: 'Poppins', sans-serif;
+  --normal-font-size: 1rem;
+  --big-font-size: 3rem;
+}
+
+
+/* === MENU DA PAGINA === */
+
+#menu {
+  background-color: white;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: #E2E5E5;
+}
+
+#logo {
+  color: #9D7715;
+  font-family: 'Marcellus SC';
+  font-size: 33px;
+  font-weight: 600;
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+}
+
+#sair {
+  color: #9D7715;
+  font-family: var(--body-font);
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+}
+
+.nav-tabs {
+  border: #9D7715 solid 1px;
+}
+
+.nav-link:hover::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 0.18rem;
+  left: 0;
+  top: 2rem;
+}
+
+.nav-link {
+  position: relative;
+  color: #000;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  color: #AB9267;
+  font-weight: 600;
+}
+
+/* === CADASTRO, LOGIN E CONTATO === */
+
+.contact__form {
+  max-width: 360px;
+}
+
+.contact__input {
+  width: 100%;
+  font-size: 0.938rem;
+  font-weight: 600;
+  padding: 1rem;
+  border-radius: .5rem;
+  border: 1.5px solid #AB9267;
+  outline: none;
+  margin-bottom: 2rem;
+}
+
+.contact__button {
+  display: block;
+  border: none;
+  outline: none;
+  font-size: var(--normal-font-size);
+  cursor: pointer;
+}
+
+.button {
+  display: inline-block;
+  background-color: #2A0944;
+  color: #fff;
+  padding: .75rem 2.5rem;
+  font-weight: 600;
+  border-radius: .5rem;
+}
+
+.button:hover {
+  box-shadow: 0 10px 36px rgba(0, 0, 0, .15);
+}
+
+.section {
+  position: relative;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #2A0944;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.section::after {
+  position: absolute;
+  content: "";
+  width: 75px;
+  height: 0.18rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 3.1rem;
+  background-color: #2A0944;
+}
+
+/* === TITULO === */
+
+.section-title {
+  position: relative;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #2A0944;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.section-title::after {
+  position: absolute;
+  content: "";
+  width: 75px;
+  height: 0.18rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 3.1rem;
+  background-color: #2A0944;
+}
+
+/* === TELA EVENTOS === */
+
+.tela_eventos {
+  background-color: #E2E5E5;
+  border: 0;
+  margin-top: 3rem;
+}
+
+.tela_eventos img {
+  height: 390px;
+}
+
+#btn {
+  background-color: #9D7715;
+  border: 0;
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+
+#btn:hover {
+  background-color: #9D7715;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, .15);
+}
+
+.card-body {
+  margin-top: 3rem;
+}
