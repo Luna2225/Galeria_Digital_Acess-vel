@@ -65,3 +65,34 @@ body {
 .img_1{
   margin-top: 10rem;
 }
+/* === CARD DE OBRAS GALERIA === */
+
+#card {
+  margin-top: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+
+#card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+#card .img-fluid {
+  width: 20rem;
+  height: 20rem;
+  margin-top: 9px;
+  border-radius: 10px;
+}
+
+#card h2 {
+  color: #AB9267;
+  font-weight: 600;
+}
+
+#card p {
+  color: #AB9267;
+}
+
+a {
+  text-decoration: none;
+}
