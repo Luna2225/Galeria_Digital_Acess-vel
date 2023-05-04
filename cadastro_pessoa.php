@@ -1,3 +1,6 @@
+<?php
+require_once "functions.php";
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -33,7 +36,7 @@
           <a class="nav-link" href="contato.html">CONTATO</a>
           <a class="nav-link" href="galeria.html">GALERIA</a>
           <a class="nav-link" href="eventos.html">EVENTOS</a>
-          <a class="nav-link" href="login.html">LOGIN</a>
+          <a class="nav-link" href="login.php">LOGIN</a>
           <a class="nav-link active" href="#">CADASTRO</a>
         </div>
       </div>
@@ -41,25 +44,29 @@
   </nav>
 
   <center>
-
     <div class="container-fluid">
-      <form class="contact__form" method="post">
+      <?php
+      $tabela = "usuarios";
+      $order = "nome";
+      inserirUsuario($conn);
+      ?>
+      <form action="" class="contact__form" method="post">
         <h2 class="section">Cadastro</h2>
-        <input type="text" placeholder="Nome Completo" autocomplete="name" class="contact__input">
-        <input type="text" placeholder="Data de Nascimento" autocomplete="number" class="contact__input">
-        <input type="text" placeholder="Gênero" autocomplete="sex" class="contact__input">
+        <input type="text" placeholder="Nome Completo" autocomplete="name" name="nome" class="contact__input">
+        <input type="date" placeholder="Data de Nascimento" autocomplete="number" name="data_nasc" class="contact__input">
+        <input type="text" placeholder="Gênero" autocomplete="sex" name="genero" class="contact__input">
         <p>
           <label>O que você é?</label> <br>
-          <select class="contact__input" autocomplete="organization-title">
+          <select class="contact__input" autocomplete="organization-title" placeholder="" name="tipo_usuario">
             <option>Selecione uma opção</option>
-            <option>Artista</option>
-            <option>Anfitrião</option>
+            <option value="artista">Artista</option>
+            <option value="anfitriao">Anfitrião</option>
           </select>
         </p>
-        <input type="email" placeholder="Email" autocomplete="email" class="contact__input">
-        <input type="password" placeholder="Senha" class="contact__input">
-        <input type="password" placeholder="Confirmar Senha" class="contact__input">
-        <input type="button" value="Cadastrar" class="contact__button button">
+        <input type="email" placeholder="Email" autocomplete="email" name="email" class="contact__input">
+        <input type="password" placeholder="Senha" name="senha" class="contact__input">
+        <input type="password" placeholder="Confirmar Senha" name="repetesenha" class="contact__input">
+        <input type="submit" value="Cadastrar" name="cadastrar" class="contact__button button">
       </form>
     </div>
   </center>
