@@ -31,14 +31,14 @@ if (isset($_POST['cadastrarObra'])) {
 <body>
   <nav class="navbar" id="menu">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.html" id="logo">ARCEBLE</a>
+      <a class="navbar-brand" id="logo">ARCEBLE</a>
       <a href="../logout.php" id="sair" id="sair">Sair <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
     </div>
   </nav>
 
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link" href="index.php">Obras Cadastradas</a>
+      <a class="nav-link" href="inicial_artista.php">Obras Cadastradas</a>
     </li>
     <li class="nav-item">
       <a class="nav-link active" aria-current="page" href="#">Cadastrar obras</a>

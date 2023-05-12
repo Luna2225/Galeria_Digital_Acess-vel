@@ -25,7 +25,7 @@ function login($conn)
       $_SESSION['nome'] = $return['nome'];
       $_SESSION['id_Usuarios'] = $return['id_Usuarios'];
       $_SESSION['ativa'] = TRUE;
-      header("location: ../autor/index.php");
+      header("location: /pages/inicial_artista.php");
     } else {
       echo "Usuário e senha não encontrados";
     }
@@ -37,7 +37,7 @@ function logout()
   session_start();
   session_unset();
   session_destroy();
-  header("location: login.php");
+  header("location: /pages/login.php");
 }
 
 /* Seleciona(busca) no BD apenas um resultado com base no iD*/
@@ -107,7 +107,7 @@ function inserirUsuario($conn)
         }
         $executar = mysqli_query($conn, $sql);
         if ($executar) {
-          header("location: login.php");
+          header("location: /pages/login.php");
         } else {
           echo "Erro ao inserir usuário!";
         }
@@ -192,7 +192,7 @@ function cadastrarObra($conn, $Artista_id)
 
     if ($resultado) {
       echo "Obra cadastrada com sucesso!";
-      header("location: index.php");
+      header("location: /pages/inicial_artista.php");
     } else {
       echo "Erro ao cadastrar obra: " . mysqli_error($conn);
     }

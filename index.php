@@ -29,12 +29,12 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-link active" aria-current="page" href="#">HOME</a>
-          <a class="nav-link" href="sobre.html">SOBRE</a>
-          <a class="nav-link" href="contato.html">CONTATO</a>
-          <a class="nav-link" href="galeria.html">GALERIA</a>
-          <a class="nav-link" href="eventos.html">EVENTOS</a>
-          <a class="nav-link" href="login.html">LOGIN</a>
-          <a class="nav-link" href="cadastro_pessoa.html">CADASTRO</a>
+          <a class="nav-link" href="pages/sobre.php">SOBRE</a>
+          <a class="nav-link" href="pages/contato.php">CONTATO</a>
+          <a class="nav-link" href="pages/galeria.php">GALERIA</a>
+          <a class="nav-link" href="pages/eventos.php">EVENTOS</a>
+          <a class="nav-link" href="pages/login.php">LOGIN</a>
+          <a class="nav-link" href="pages/cadastro_pessoa.php">CADASTRO</a>
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@
     <!-- === NOVAS OBRAS === -->
     <div class="container-fluid">
 
-      <h2 class="section-title">AECEBLE</h2>
+      <h2 class="section-title">ARCEBLE</h2>
 
       <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -149,7 +149,7 @@
         <a href="#" class="footer__icon"><i class='bx bxl-facebook-circle'></i></a>
         <a href="#" class="footer__icon"><i class='bx bxl-instagram'></i></a>
       </div>
-      <p>&#169; 2021copyright all right reserved</p>
+      <p>&#169; 2023 copyright all right reserved</p>
     </footer>
 
   </center>

@@ -123,6 +123,7 @@ body {
 /* === TITULO === */
 
 .section-title {
+  white-space: nowrap;
   position: relative;
   font-size: 2.4rem;
   font-weight: 600;

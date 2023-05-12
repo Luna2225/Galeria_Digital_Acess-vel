@@ -11,9 +11,9 @@
 
   <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
 
-  <link rel="icon" type="image/png" href="assets/logo/logoarceble copy.png" />
+  <link rel="icon" type="image/png" href="/assets/logo/logoarceble copy.png" />
 
   <title>Sobre | Arceble</title>
 </head>
@@ -21,20 +21,20 @@
 <body>
   <nav class="navbar navbar-expand-lg" id="menu">
     <div class="container-fluid">
-      <a href="index.html" class="navbar-brand disabled" id="logo">ARCEBLE</a>
+      <a href="/index.php" class="navbar-brand disabled" id="logo">ARCEBLE</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link" aria-current="page" href="index.html">HOME</a>
+          <a class="nav-link" aria-current="page" href="/index.php">HOME</a>
           <a class="nav-link active" href="#">SOBRE</a>
-          <a class="nav-link" href="contato.html">CONTATO</a>
-          <a class="nav-link" href="galeria.html">GALERIA</a>
-          <a class="nav-link" href="eventos.html">EVENTOS</a>
-          <a class="nav-link" href="login.html">LOGIN</a>
-          <a class="nav-link" href="cadastro_pessoa.html">CADASTRO</a>
+          <a class="nav-link" href="contato.php">CONTATO</a>
+          <a class="nav-link" href="galeria.php">GALERIA</a>
+          <a class="nav-link" href="eventos.php">EVENTOS</a>
+          <a class="nav-link" href="login.php">LOGIN</a>
+          <a class="nav-link" href="cadastro_pessoa.php">CADASTRO</a>
         </div>
       </div>
     </div>
@@ -60,10 +60,23 @@
           </div>
         </div>
         <div class="col-md-4">
-          <img src="assets/logo/logoarceble copy.png" class="img-fluid" alt="...">
+          <img src="../assets/logo/logoarceble copy.png" class="img-fluid" alt="...">
         </div>
       </div>
     </div>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+      <p class="footer__title">ARCEBLE</p>
+      <div class="footer__social">
+        <a href="#" class="footer__icon"><i class='bx bxl-github'></i></a>
+        <a href="#" class="footer__icon"><i class='bx bxl-linkedin-square'></i></a>
+        <a href="#" class="footer__icon"><i class='bx bxl-whatsapp'></i></a>
+        <a href="#" class="footer__icon"><i class='bx bxl-facebook-circle'></i></a>
+        <a href="#" class="footer__icon"><i class='bx bxl-instagram'></i></a>
+      </div>
+      <p>&#169; 2023 copyright all right reserved</p>
+    </footer>
   </center>
 
 
