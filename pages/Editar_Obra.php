@@ -1,6 +1,6 @@
 <?php
 session_start();
-$seguranca = isset($_SESSION['ativa']) ? TRUE : header("location: ../login.php");
+$seguranca = isset($_SESSION['id_Usuarios']) ? true : header("location: ../login.php");
 require_once "../functions.php";
 ?>
 
@@ -28,13 +28,13 @@ require_once "../functions.php";
   <nav class="navbar" id="menu">
     <div class="container-fluid">
       <a class="navbar-brand" href="index.html" id="logo">ARCEBLE</a>
-      <a href="../logout.php" id="sair" id="sair">Sair <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+      <a href="../logout.php" id="sair">Sair <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
     </div>
   </nav>
 
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link" href="index.php">Obras Cadastradas</a>
+      <a class="nav-link" href="inicial_artista.php">Obras Cadastradas</a>
     </li>
     <li class="nav-item">
       <a class="nav-link active" aria-current="page" href="#">Editar obra</a>

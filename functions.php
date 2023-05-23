@@ -20,12 +20,15 @@ function login($conn)
     $return = mysqli_fetch_assoc($executar);
 
     if (!empty($return['email'])) {
-      // echo "Bem vindo " . $return['nome'];
       session_start();
       $_SESSION['nome'] = $return['nome'];
       $_SESSION['id_Usuarios'] = $return['id_Usuarios'];
       $_SESSION['ativa'] = TRUE;
-      header("location: /pages/inicial_artista.php");
+      if ($tipo_usuario === 'artista') {
+        header("location: /pages/inicial_artista.php");
+      } elseif ($tipo_usuario === 'anfitriao') {
+        header("location: /pages/inicial_curador.php");
+      }
     } else {
       echo "Usuário e senha não encontrados";
     }
@@ -52,7 +55,16 @@ function listar_obra($conn, $id_Obras, $tabela)
   return $obras;
 }
 
-
+function listar_evento($conn, $idExposicoes, $tabela)
+{
+  $query = "SELECT * FROM exposicoes JOIN anfitriao ON exposicoes.id_Anfitriao = anfitriao.id_Anfitriao WHERE anfitriao.id_Anfitriao =" . (int) $idExposicoes;
+  $execute = mysqli_query($conn, $query);
+  $exposicoes = array();
+  while ($result = mysqli_fetch_assoc($execute)) {
+    $exposicoes[] = $result;
+  }
+  return $exposicoes;
+}
 
 /* Seleciona(busca) no BD todos os resultado com base no WHERE*/
 function listar_obras($conn, $tabela, $where = 1, $order = "")
@@ -136,6 +148,19 @@ function deletar($conn, $tabela, $id_Obras)
   }
 }
 
+function deletar_exposicoes($conn, $tabela, $idExposicoes)
+{
+  if (!empty($idExposicoes)) {
+    $query = "DELETE FROM $tabela WHERE idExposicoes =" . (int) $idExposicoes;
+    $execute = mysqli_query($conn, $query);
+    if ($execute) {
+      echo "Dado deletado com sucesso!";
+    } else {
+      echo "Erro ao deletar dado!";
+    }
+  }
+}
+
 function cadastrarObra($conn, $Artista_id)
 {
   if (isset($_POST['cadastrarObra'])) {
@@ -201,7 +226,12 @@ function cadastrarObra($conn, $Artista_id)
 
 function AtualizarObra($conn)
 {
-  if (isset($_POST['atualizar'])) {
+  if (!isset($_SESSION['id_Usuarios'])) {
+    header("Location: login.php");
+    exit;
+  }
+
+  if (isset($_POST['atualizarObra'])) {
     $Artista_id = $_SESSION['id_Usuarios'];
     $id_Obras = filter_input(INPUT_POST, "id_Obras", FILTER_VALIDATE_INT);
     $autor = mysqli_real_escape_string($conn, $_POST['autor']);
@@ -211,41 +241,57 @@ function AtualizarObra($conn)
     $LongaDesc = mysqli_real_escape_string($conn, $_POST['LongaDesc']);
     $audiodescricao = $_FILES['audiodescricao'];
 
-    if ($imagem['error'] != UPLOAD_ERR_OK || $audiodescricao['error'] != UPLOAD_ERR_OK) {
-      echo "Erro ao enviar arquivos: " . $imagem['error'] . ", " . $audiodescricao['error'];
+    if ($id_Obras === false) {
+      echo "ID da obra inválido.";
       return;
     }
 
-    // Validar os dados recebidos do formulário
+    if ($imagem['error'] !== UPLOAD_ERR_OK || $audiodescricao['error'] !== UPLOAD_ERR_OK) {
+      echo "Erro ao enviar arquivos.";
+      return;
+    }
+
     if (empty($autor) || empty($Descricao) || empty($nome_obra) || empty($LongaDesc)) {
       echo "Por favor, preencha todos os campos.";
       return;
     }
 
-    // Obter a extensão do arquivo de imagem
+    // Verificar comprimento máximo dos campos de texto, se aplicável
+    $max_length_autor = 100; // exemplo de comprimento máximo permitido
+    if (strlen($autor) > $max_length_autor) {
+      echo "O campo 'Autor' excede o comprimento máximo permitido.";
+      return;
+    }
+
+    // Validação de tamanho e tipo de arquivo
+    $max_file_size = 80048576; // exemplo de tamanho máximo permitido (1MB)
+    $allowed_image_types = array("jpeg", "jpg", "png"); // tipos de imagem permitidos
+    $allowed_audio_types = array("mp3", "wav", "mp4"); // tipos de áudio permitidos
+
+    if ($imagem['size'] > $max_file_size || !in_array(strtolower(pathinfo($imagem['name'], PATHINFO_EXTENSION)), $allowed_image_types)) {
+      echo "Por favor, selecione uma imagem válida com tamanho máximo de 1MB.";
+      return;
+    }
+
+    if ($audiodescricao['size'] > $max_file_size || !in_array(strtolower(pathinfo($audiodescricao['name'], PATHINFO_EXTENSION)), $allowed_audio_types)) {
+      echo "Por favor, selecione um arquivo de áudio válido com tamanho máximo de 1MB.";
+      return;
+    }
+
     $imagem_extensao = strtolower(pathinfo($imagem['name'], PATHINFO_EXTENSION));
-
-    // Gerar um nome único para o arquivo de imagem
     $imagem_nome = uniqid() . "." . $imagem_extensao;
-
-    // Mover o arquivo de imagem para o diretório de uploads
     $imagem_caminho = '../assets/img/';
-    move_uploaded_file($imagem['tmp_name'], $imagem_caminho . $imagem_nome);
 
-    // Obter a extensão do arquivo de áudio
     $audiodescricao_extensao = strtolower(pathinfo($audiodescricao['name'], PATHINFO_EXTENSION));
-
-    // Gerar um nome único para o arquivo de áudio
     $audiodescricao_nome = uniqid() . "." . $audiodescricao_extensao;
-
-    // Mover o arquivo de áudio para o diretório de uploads
     $audiodescricao_caminho = '../assets/audio/';
-    move_uploaded_file($audiodescricao['tmp_name'], $audiodescricao_caminho . $audiodescricao_nome);
 
     $imagem_caminho_completo = $imagem_caminho . $imagem_nome;
     $audiodescricao_caminho_completo = $audiodescricao_caminho . $audiodescricao_nome;
 
-    // Obter a data atual
+    move_uploaded_file($imagem['tmp_name'], $imagem_caminho . $imagem_nome);
+    move_uploaded_file($audiodescricao['tmp_name'], $audiodescricao_caminho . $audiodescricao_nome);
+
     $dataCriacao = date('Y-m-d');
 
     $query = "UPDATE obras SET autor='$autor', Descricao='$Descricao', nome_obra='$nome_obra', imagem='$imagem_caminho_completo', dataCriacao='$dataCriacao', LongaDesc='$LongaDesc', audiodescricao='$audiodescricao_caminho_completo', Artista_id='$Artista_id' WHERE id_Obras='$id_Obras'";
@@ -253,9 +299,70 @@ function AtualizarObra($conn)
 
     if ($resultado) {
       echo "Obra atualizada com sucesso!";
-      header("location: index.php");
+      header("location: inicial_artista.php");
     } else {
       echo "Erro ao atualizar obra: " . mysqli_error($conn);
+    }
+  }
+}
+
+function cadastrarExposicao($conn, $id_Anfitriao)
+{
+  if (isset($_POST['cadastrarExposicao'])) {
+    $idExposicoes = rand(1, 999999);
+    $Nome_expo = mysqli_real_escape_string($conn, $_POST['Nome_expo']);
+    $Desc_expo = mysqli_real_escape_string($conn, $_POST['Desc_expo']);
+    $Imagem = $_FILES['Imagem'];
+    $DataInicial = $_POST['DataInicial'];
+    $DataFinal = $_POST['DataFinal'];
+    $Audio_expo = $_FILES['Audio_expo'];
+
+    // Verificar se os arquivos foram enviados corretamente
+    if ($Imagem['error'] != UPLOAD_ERR_OK || $Audio_expo['error'] != UPLOAD_ERR_OK) {
+      echo "Erro ao enviar arquivos: " . $Imagem['error'] . ", " . $Audio_expo['error'];
+      return;
+    }
+
+    // Validar os dados recebidos do formulário
+    if (empty($Nome_expo) || empty($Desc_expo) || empty($DataInicial) || empty($DataFinal)) {
+      echo "Por favor, preencha todos os campos.";
+      return;
+    }
+
+    // Obter a extensão do arquivo de imagem
+    $imagem_extensao = strtolower(pathinfo($Imagem['name'], PATHINFO_EXTENSION));
+
+    // Gerar um nome único para o arquivo de imagem
+    $imagem_nome = uniqid() . "." . $imagem_extensao;
+
+    // Mover o arquivo de imagem para o diretório de uploads
+    $imagem_caminho = '../assets/img/';
+    move_uploaded_file($Imagem['tmp_name'], $imagem_caminho . $imagem_nome);
+
+    // Obter a extensão do arquivo de áudio
+    $audio_extensao = strtolower(pathinfo($Audio_expo['name'], PATHINFO_EXTENSION));
+
+    // Gerar um nome único para o arquivo de áudio
+    $audio_nome = uniqid() . "." . $audio_extensao;
+
+    // Mover o arquivo de áudio para o diretório de uploads
+    $audio_caminho = '../assets/audio/';
+    move_uploaded_file($Audio_expo['tmp_name'], $audio_caminho . $audio_nome);
+
+    $imagem_caminho_completo = $imagem_caminho . $imagem_nome;
+    $audio_caminho_completo = $audio_caminho . $audio_nome;
+
+    $id_Anfitriao = $_SESSION['id_Usuarios'];
+
+    // Executar a inserção dos dados no banco de dados
+    $query = "INSERT INTO exposicoes (idExposicoes, Nome_expo, Desc_expo, Imagem, DataInicial, DataFinal, Audio_expo, id_Anfitriao) VALUES ('$idExposicoes', '$Nome_expo', '$Desc_expo', '$imagem_caminho_completo', '$DataInicial', '$DataFinal', '$audio_caminho_completo', '$id_Anfitriao')";
+    $resultado = mysqli_query($conn, $query);
+
+    if ($resultado) {
+      echo "Exposição cadastrada com sucesso!";
+      header("location: /pages/inicial_curador.php");
+    } else {
+      echo "Erro ao cadastrar exposição: " . mysqli_error($conn);
     }
   }
 }

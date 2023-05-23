@@ -72,7 +72,7 @@ require_once "../functions.php";
           <select class="contact__input" autocomplete="organization-title" placeholder="" name="tipo_usuario">
             <option>Selecione uma opção</option>
             <option value="artista">Artista</option>
-            <option value="anfitriao">Anfitrião</option>
+            <option value="anfitriao">Curador</option>
           </select>
         </p>
         <input type="email" placeholder="Email" autocomplete="email" name="email" class="contact__input">

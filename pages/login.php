@@ -52,7 +52,7 @@ if (isset($_POST['acessar'])) {
         <select class="contact__input" placeholder="" name="tipo_usuario">
           <option>Selecione uma opção</option>
           <option value="artista">Artista</option>
-          <option value="anfitriao">Anfitrião</option>
+          <option value="anfitriao">Curador</option>
         </select>
         <input type="email" name="email" placeholder="Email" autocomplete="name" class="contact__input" required>
         <input type="password" name="senha" placeholder="senha" autocomplete="senha" class="contact__input" required>

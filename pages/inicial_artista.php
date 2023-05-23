@@ -1,5 +1,5 @@
 <?php session_start();
-$seguranca = isset($_SESSION['ativa']) ? TRUE : header("location: ../login.php");
+$seguranca = isset($_SESSION['id_Usuarios']) ? TRUE : header("location: login.php");
 require_once "../functions.php";
 ?>
 <!DOCTYPE html>
@@ -63,7 +63,7 @@ require_once "../functions.php";
                 <?php
                 if (isset($_POST['deletar'])) {
                     deletar($conn, "obras", $_POST['id']);
-                    header("location: index.php");
+                    header("location: inicial_artista.php");
                 }
                 ?>
 
@@ -79,7 +79,7 @@ require_once "../functions.php";
                                     <p class="card-text"><?php echo $obra['LongaDesc']; ?></p>
                                     <div class="gap-2 col-6 mx-auto">
                                         <a href="Editar_Obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>&nome_obra=<?php echo $obra['nome_obra']; ?>&autor=<?php echo $obra['autor']; ?>&Descricao=<?php echo $obra['Descricao']; ?>&LongaDesc=<?php echo $obra['LongaDesc']; ?>&imagem=<?php echo $obra['imagem']; ?>&audiodescricao=<?php echo $obra['audiodescricao']; ?>&dataCriacao=<?php echo $obra['dataCriacao']; ?>&Artista_id=<?php echo $obra['Artista_id']; ?>" class="btn btn-primary px-4 py-2" id="btn">Editar</a>
-                                        <a href="index.php?id=<?php echo $obra['id_Obras']; ?>&nome_obra=<?php echo $obra['nome_obra']; ?>" class="btn btn-primary px-4 py-2" id="btn">Excluir</a>
+                                        <a href="inicial_artista.php?id=<?php echo $obra['id_Obras']; ?>&nome_obra=<?php echo $obra['nome_obra']; ?>" class="btn btn-primary px-4 py-2" id="btn">Excluir</a>
                                     </div>
                                 </div>
                             </div>
