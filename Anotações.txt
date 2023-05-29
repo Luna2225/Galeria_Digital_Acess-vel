@@ -1,0 +1,15 @@
+if (isset($_POST['salvar'])) {
+    $obrasSelecionadas = $_POST['obras'];
+
+    // Iterar pelas obras selecionadas e inserir na tabela exposicoesobras
+    foreach ($obrasSelecionadas as $obraSelecionada) {
+        $idExposicoesObras = rand(1, 999999);
+        $sql = "INSERT INTO exposicoesobras (idExposicoesObras, Obras_idObras, Exposicoes_idExposicoes) VALUES ($idExposicoesObras, $obraSelecionada, $idExposicoes)";
+        // Execute a consulta SQL
+        // Por exemplo, usando a função mysqli_query:
+        mysqli_query($conn, $sql);
+    }
+    // Exibir uma mensagem de sucesso ou redirecionar para outra página
+    // ou
+    // header("Location: outra_pagina.php");
+}

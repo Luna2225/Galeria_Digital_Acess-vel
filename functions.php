@@ -366,3 +366,135 @@ function cadastrarExposicao($conn, $id_Anfitriao)
     }
   }
 }
+
+function atualizarExposicao($conn)
+{
+
+  if (!isset($_SESSION['id_Usuarios'])) {
+    header("Location: login.php");
+    exit;
+  }
+
+  if (isset($_POST['atualizarExposicao'])) {
+    $id_Anfitriao = $_SESSION['id_Usuarios'];
+    $idExposicoes = filter_input(INPUT_POST, "idExposicoes", FILTER_VALIDATE_INT);
+    $Nome_expo = mysqli_real_escape_string($conn, $_POST['Nome_expo']);
+    $Desc_expo = mysqli_real_escape_string($conn, $_POST['Desc_expo']);
+    $Imagem = $_FILES['Imagem'];
+    $DataInicial = $_POST['DataInicial'];
+    $DataFinal = $_POST['DataFinal'];
+    $Audio_expo = $_FILES['Audio_expo'];
+
+    if ($idExposicoes === false) {
+      echo "ID da exposição inválido.";
+      return;
+    }
+
+    // Verificar se os arquivos foram enviados corretamente
+    if ($Imagem['error'] != UPLOAD_ERR_OK || $Audio_expo['error'] != UPLOAD_ERR_OK) {
+      echo "Erro ao enviar arquivos: " . $Imagem['error'] . ", " . $Audio_expo['error'];
+      return;
+    }
+
+    // Validar os dados recebidos do formulário
+    if (empty($Nome_expo) || empty($Desc_expo) || empty($DataInicial) || empty($DataFinal)) {
+      echo "Por favor, preencha todos os campos.";
+      return;
+    }
+
+    // Validação de tamanho e tipo de arquivo
+    $max_file_size = 80048576; // exemplo de tamanho máximo permitido (1MB)
+    $allowed_image_types = array("jpeg", "jpg", "png"); // tipos de imagem permitidos
+    $allowed_audio_types = array("mp3", "wav", "mp4"); // tipos de áudio permitidos
+
+    if ($Imagem['size'] > $max_file_size || !in_array(strtolower(pathinfo($Imagem['name'], PATHINFO_EXTENSION)), $allowed_image_types)) {
+      echo "Por favor, selecione uma imagem válida com tamanho máximo de 1MB.";
+      return;
+    }
+
+    if ($Audio_expo['size'] > $max_file_size || !in_array(strtolower(pathinfo($Audio_expo['name'], PATHINFO_EXTENSION)), $allowed_audio_types)) {
+      echo "Por favor, selecione um arquivo de áudio válido com tamanho máximo de 1MB.";
+      return;
+    }
+
+    // Obter a extensão do arquivo de imagem
+    $imagem_extensao = strtolower(pathinfo($Imagem['name'], PATHINFO_EXTENSION));
+
+    // Gerar um nome único para o arquivo de imagem
+    $imagem_nome = uniqid() . "." . $imagem_extensao;
+
+    // Mover o arquivo de imagem para o diretório de uploads
+    $imagem_caminho = '../assets/img/';
+    move_uploaded_file($Imagem['tmp_name'], $imagem_caminho . $imagem_nome);
+
+    // Obter a extensão do arquivo de áudio
+    $audio_extensao = strtolower(pathinfo($Audio_expo['name'], PATHINFO_EXTENSION));
+
+    // Gerar um nome único para o arquivo de áudio
+    $audio_nome = uniqid() . "." . $audio_extensao;
+
+    // Mover o arquivo de áudio para o diretório de uploads
+    $audio_caminho = '../assets/audio/';
+    move_uploaded_file($Audio_expo['tmp_name'], $audio_caminho . $audio_nome);
+
+    $imagem_caminho_completo = $imagem_caminho . $imagem_nome;
+    $audio_caminho_completo = $audio_caminho . $audio_nome;
+
+    // Executar a atualização dos dados no banco de dados
+    $query = "UPDATE exposicoes SET Nome_expo='$Nome_expo', Desc_expo='$Desc_expo', Imagem='$imagem_caminho_completo', DataInicial='$DataInicial', DataFinal='$DataFinal', Audio_expo='$audio_caminho_completo', id_Anfitriao='$id_Anfitriao' WHERE idExposicoes=$idExposicoes";
+    $resultado = mysqli_query($conn, $query);
+
+    if ($resultado) {
+      echo "Exposição atualizada com sucesso!";
+      header("location: inicial_curador.php");
+    } else {
+      echo "Erro ao atualizar exposição: " . mysqli_error($conn);
+    }
+  }
+}
+
+function listar_exposicao($conn, $idExposicoes, $tabela)
+{
+  $query = "SELECT * FROM $tabela WHERE idExposicoes = " . (int) $idExposicoes;
+  $execute = mysqli_query($conn, $query);
+  $exposicao = mysqli_fetch_assoc($execute);
+  return $exposicao;
+}
+
+function listar_obras_exposicao($conn, $idExposicoes, $tabelaExposicoesObras)
+{
+  $obras = array();
+
+  $sql = "SELECT obras.id_Obras, obras.nome_obra, obras.autor, obras.imagem FROM obras
+          INNER JOIN $tabelaExposicoesObras ON obras.id_Obras = $tabelaExposicoesObras.Obras_idObras
+          WHERE $tabelaExposicoesObras.Exposicoes_idExposicoes = $idExposicoes";
+
+  $result = mysqli_query($conn, $sql);
+
+  if ($result && mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+      $obras[] = $row;
+    }
+  }
+
+  return $obras;
+}
+
+function obra_evento($conn, $idExposicoes)
+{
+  if (isset($_POST['salvar'])) {
+    $obrasSelecionadas = $_POST['obras'];
+
+    // Iterar pelas obras selecionadas e inserir na tabela exposicoesobras
+    foreach ($obrasSelecionadas as $obraSelecionada) {
+      $idExposicoesObras = rand(1, 999999);
+      $sql = "INSERT INTO exposicoesobras (idExposicoesObras, Obras_idObras, Exposicoes_idExposicoes) VALUES ($idExposicoesObras, $obraSelecionada, $idExposicoes)";
+      // Execute a consulta SQL
+      // Por exemplo, usando a função mysqli_query:
+      mysqli_query($conn, $sql);
+    }
+    // Exibir uma mensagem de sucesso ou redirecionar para outra página
+    // ou
+    // header("Location: outra_pagina.php");
+  }
+}

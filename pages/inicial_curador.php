@@ -72,7 +72,7 @@ require_once "../functions.php";
                     <?php foreach ($exposicoes as $exposicoe) : ?>
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="...">
+                                <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="<?php echo $exposicoe['Desc_expo']; ?>">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -81,6 +81,7 @@ require_once "../functions.php";
                                     <div class="gap-2 col-6 mx-auto">
                                         <a href="editar_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>&Nome_expo=<?php echo $exposicoe['Nome_expo']; ?>&Desc_expo=<?php echo $exposicoe['Desc_expo']; ?>&Imagem=<?php echo $exposicoe['Imagem']; ?>&DataInicial=<?php echo $exposicoe['DataInicial']; ?>&DataFinal=<?php echo $exposicoe['DataFinal']; ?>&Audio_expo=<?php echo $exposicoe['Audio_expo']; ?>&id_Anfitriao=<?php echo $exposicoe['id_Anfitriao']; ?>" class="btn btn-primary px-4 py-2" id="btn">Editar</a>
                                         <a href="inicial_curador.php?id=<?php echo $exposicoe['idExposicoes']; ?>&Nome_expo=<?php echo $exposicoe['Nome_expo']; ?>" class="btn btn-primary px-4 py-2" id="btn">Excluir</a>
+                                        <a href="obra_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>" class="btn btn-primary px-4 py-2" id="btn">Selecionar</a>
                                     </div>
                                 </div>
                             </div>

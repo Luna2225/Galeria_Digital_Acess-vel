@@ -41,7 +41,7 @@ if (isset($_POST['cadastrarExposicao'])) {
       <a class="nav-link" href="inicial_curador.php">Eventos Cadastrados</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="Cadastrar_Evento.html">Cadastrar eventos</a>
+      <a class="nav-link active" aria-current="page" href="#">Cadastrar eventos</a>
     </li>
   </ul>
 
