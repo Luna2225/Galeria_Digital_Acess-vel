@@ -1,3 +1,20 @@
+<?php
+session_start();
+require_once "../functions.php";
+
+if (isset($_GET['id_Obras'])) {
+  $id_Obras = $_GET['id_Obras'];
+  $tabela = "obras";
+  $obras = todas_obras($conn, $id_Obras, $tabela);
+} else {
+  // Caso contrário, defina um valor padrão ou exiba uma mensagem de erro
+  $idExposicoes = 1; // Exemplo: assume o ID 1 caso não esteja presente na URL
+  // Ou exiba uma mensagem de erro e interrompa a execução da página
+  // echo "ID de exposição não fornecido!";
+  // exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -35,19 +52,22 @@
           <li class="breadcrumb-item acitve">Descrição da Obra</li>
         </ul>
       </nav>
+      <?php if ($obras) { ?>
+        <img src="<?php echo $obras['imagem']; ?>" class="img-fluid obra" alt="<?php echo $obras['LongaDesc']; ?>"><br>
+        <audio controls autoplay>
+          <source src="<?php echo $obras['audiodescricao']; ?>" type="audio/mpeg">
+        </audio>
+        <hr>
+        <h1><?php echo $obras['nome_obra']; ?>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
+              <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z" />
+            </svg>
+          </button>
+        </h1>
 
-      <img src="../assets/img/03.jpg" class="img-fluid obra" alt="..."><br>
-      <audio controls autoplay>
-        <source src="../assets/audio/Audiodescrição obra A Noite Estrelada de Vincent Van Gogh.mp3" type="audio/mpeg">
-      </audio>
-      <hr>
-      <h1>Nome da Obra
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
-            <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z" />
-          </svg>
-        </button>
-      </h1>
+        <p><?php echo $obras['Descricao']; ?></p>
+      <?php } ?>
 
       <!-- Modal -->
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -66,7 +86,6 @@
         </div>
       </div>
 
-      <p>Descrição</p>
       <hr>
 
       <h2>Obras Recomendadas</h2>

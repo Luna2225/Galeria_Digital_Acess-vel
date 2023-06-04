@@ -79,6 +79,22 @@ function listar_obras($conn, $tabela, $where = 1, $order = "")
   return $results;
 }
 
+function evento_index($conn, $tabela, $where = 1, $order = "idExposicoes DESC", $limit = 1)
+{
+  $query = "SELECT * FROM $tabela WHERE $where ORDER BY $order LIMIT $limit";
+  $execute = mysqli_query($conn, $query);
+  $results = mysqli_fetch_all($execute, MYSQLI_ASSOC);
+  return $results;
+}
+
+function obra_index($conn, $tabela1, $where = 1, $order = "id_Obras DESC", $limit = 3)
+{
+  $query = "SELECT * FROM $tabela1 WHERE $where ORDER BY $order LIMIT $limit";
+  $execute = mysqli_query($conn, $query);
+  $results = mysqli_fetch_all($execute, MYSQLI_ASSOC);
+  return $results;
+}
+
 /* Inserir novos usuarios */
 function inserirUsuario($conn)
 {
@@ -138,28 +154,56 @@ function inserirUsuario($conn)
 function deletar($conn, $tabela, $id_Obras)
 {
   if (!empty($id_Obras)) {
-    $query = "DELETE FROM $tabela WHERE id_Obras =" . (int) $id_Obras;
-    $execute = mysqli_query($conn, $query);
-    if ($execute) {
+    // Excluir as entradas relacionadas na tabela exposicoesobras
+    $queryExposicoesObras = "DELETE FROM exposicoesobras WHERE Obras_idObras = ?";
+    $stmtExposicoesObras = mysqli_prepare($conn, $queryExposicoesObras);
+    mysqli_stmt_bind_param($stmtExposicoesObras, "i", $id_Obras);
+    mysqli_stmt_execute($stmtExposicoesObras);
+    mysqli_stmt_close($stmtExposicoesObras);
+
+    // Excluir a obra na tabela obras
+    $queryObras = "DELETE FROM $tabela WHERE id_Obras = ?";
+    $stmtObras = mysqli_prepare($conn, $queryObras);
+    mysqli_stmt_bind_param($stmtObras, "i", $id_Obras);
+    mysqli_stmt_execute($stmtObras);
+
+    if (mysqli_stmt_affected_rows($stmtObras) > 0) {
       echo "Dado deletado com sucesso!";
     } else {
       echo "Erro ao deletar dado!";
     }
+
+    mysqli_stmt_close($stmtObras);
   }
 }
+
 
 function deletar_exposicoes($conn, $tabela, $idExposicoes)
 {
   if (!empty($idExposicoes)) {
-    $query = "DELETE FROM $tabela WHERE idExposicoes =" . (int) $idExposicoes;
-    $execute = mysqli_query($conn, $query);
-    if ($execute) {
+    // Excluir as entradas relacionadas na tabela exposicoesobras
+    $queryExposicoesObras = "DELETE FROM exposicoesobras WHERE Exposicoes_idExposicoes = ?";
+    $stmtExposicoesObras = mysqli_prepare($conn, $queryExposicoesObras);
+    mysqli_stmt_bind_param($stmtExposicoesObras, "i", $idExposicoes);
+    mysqli_stmt_execute($stmtExposicoesObras);
+    mysqli_stmt_close($stmtExposicoesObras);
+
+    // Excluir a exposição na tabela exposicoes
+    $queryExposicoes = "DELETE FROM $tabela WHERE idExposicoes = ?";
+    $stmtExposicoes = mysqli_prepare($conn, $queryExposicoes);
+    mysqli_stmt_bind_param($stmtExposicoes, "i", $idExposicoes);
+    mysqli_stmt_execute($stmtExposicoes);
+
+    if (mysqli_stmt_affected_rows($stmtExposicoes) > 0) {
       echo "Dado deletado com sucesso!";
     } else {
       echo "Erro ao deletar dado!";
     }
+
+    mysqli_stmt_close($stmtExposicoes);
   }
 }
+
 
 function cadastrarObra($conn, $Artista_id)
 {
@@ -404,7 +448,7 @@ function atualizarExposicao($conn)
 
     // Validação de tamanho e tipo de arquivo
     $max_file_size = 80048576; // exemplo de tamanho máximo permitido (1MB)
-    $allowed_image_types = array("jpeg", "jpg", "png"); // tipos de imagem permitidos
+    $allowed_image_types = array("jpeg", "jpg", "png", "webp"); // tipos de imagem permitidos
     $allowed_audio_types = array("mp3", "wav", "mp4"); // tipos de áudio permitidos
 
     if ($Imagem['size'] > $max_file_size || !in_array(strtolower(pathinfo($Imagem['name'], PATHINFO_EXTENSION)), $allowed_image_types)) {
@@ -497,4 +541,27 @@ function obra_evento($conn, $idExposicoes)
     // ou
     // header("Location: outra_pagina.php");
   }
+}
+
+function todas_obras($conn, $id_Obras, $tabela)
+{
+  $query = "SELECT * FROM $tabela WHERE id_Obras = " . (int) $id_Obras;
+  $execute = mysqli_query($conn, $query);
+  $exposicao = mysqli_fetch_assoc($execute);
+  return $exposicao;
+}
+
+function todos($conn, $tabela)
+{
+  $query = "SELECT * FROM $tabela";
+  $execute = mysqli_query($conn, $query);
+
+  $todos = array(); // Cria um array vazio para armazenar todos os resultados
+
+  // Percorre o conjunto de resultados e adiciona cada linha ao array
+  while ($row = mysqli_fetch_assoc($execute)) {
+    $todos[] = $row;
+  }
+
+  return $todos;
 }

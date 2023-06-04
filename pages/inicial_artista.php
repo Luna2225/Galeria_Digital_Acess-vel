@@ -71,7 +71,7 @@ require_once "../functions.php";
                     <?php foreach ($obras as $obra) : ?>
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="<?php echo $obra['imagem']; ?>" class="card-img" alt="...">
+                                <img src="<?php echo $obra['imagem']; ?>" class="card-img" alt="<?php echo $obra['LongaDesc']; ?>">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
