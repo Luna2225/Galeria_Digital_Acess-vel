@@ -9,7 +9,7 @@ if (isset($_POST['cadastrarObra'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">

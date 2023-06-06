@@ -27,19 +27,19 @@ $obras = todos($conn, $tabela);
 <body>
   <nav class="navbar navbar-expand-lg" id="menu">
     <div class="container-fluid">
-      <a href="/index.php" class="navbar-brand disabled" id="logo">ARCEBLE</a>
+      <a href="/index.php" class="navbar-brand disabled" id="logo" aria-label="Página inicial da ARCEBLE">ARCEBLE</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link" aria-current="page" href="/index.php">HOME</a>
-          <a class="nav-link" href="sobre.php">SOBRE</a>
-          <a class="nav-link" href="contato.php">CONTATO</a>
-          <a class="nav-link active" href="#">GALERIA</a>
-          <a class="nav-link" href="eventos.php">EVENTOS</a>
-          <a class="nav-link" href="login.php">LOGIN</a>
-          <a class="nav-link" href="cadastro_pessoa.php">CADASTRO</a>
+          <a class="nav-link" href="/index.php" aria-label="Página inicial">HOME</a>
+          <a class="nav-link" href="sobre.php" aria-label="Página sobre">SOBRE</a>
+          <a class="nav-link" href="contato.php" aria-label="Página de contato">CONTATO</a>
+          <a class="nav-link active" href="#" aria-label="Página da galeria">GALERIA</a>
+          <a class="nav-link" href="eventos.php" aria-label="Página de eventos">EVENTOS</a>
+          <a class="nav-link" href="login.php" aria-label="Página de login">LOGIN</a>
+          <a class="nav-link" href="cadastro_pessoa.php" aria-label="Página de cadastro">CADASTRO</a>
         </div>
       </div>
     </div>
@@ -57,9 +57,10 @@ $obras = todos($conn, $tabela);
           <?php foreach ($obras as $obra) { ?>
             <div class="col">
               <div class="card h-100" id="card">
-                <a href="descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>"><img src="<?php echo $obra['imagem']; ?>" class="img-fluid " alt="..."></a>
+                <a href="descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>"><img src="<?php echo $obra['imagem']; ?>" class="img-fluid " alt="Imagem da obra de arte <?php echo $obra['nome_obra']; ?>"></a>
                 <div class="card-body">
                   <h2 class="card-title"><?php echo $obra['nome_obra']; ?></h2>
+                  <p><?php echo $obra['autor']; ?></p>
                   <a href="descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>" class="btn btn-primary px-4 py-2 fs-5 mt-5" id="button">Mais</a>
                 </div>
               </div>
@@ -72,13 +73,13 @@ $obras = todos($conn, $tabela);
     <footer class="footer">
       <p class="footer__title">ARCEBLE</p>
       <div class="footer__social">
-        <a href="#" class="footer__icon"><i class='bx bxl-github'></i></a>
-        <a href="#" class="footer__icon"><i class='bx bxl-linkedin-square'></i></a>
-        <a href="#" class="footer__icon"><i class='bx bxl-whatsapp'></i></a>
-        <a href="#" class="footer__icon"><i class='bx bxl-facebook-circle'></i></a>
-        <a href="#" class="footer__icon"><i class='bx bxl-instagram'></i></a>
+        <a href="#" class="footer__icon" aria-label="GitHub"><i class='bx bxl-github'></i></a>
+        <a href="#" class="footer__icon" aria-label="LinkedIn"><i class='bx bxl-linkedin-square'></i></a>
+        <a href="#" class="footer__icon" aria-label="WhatsApp"><i class='bx bxl-whatsapp'></i></a>
+        <a href="#" class="footer__icon" aria-label="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+        <a href="#" class="footer__icon" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
       </div>
-      <p>&#169; 2023 copyright all right reserved</p>
+      <p>&copy; 2023 ARCEBLE. Todos os direitos reservados.</p>
     </footer>
 
   </center>

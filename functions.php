@@ -1,7 +1,7 @@
 <?php
 $servidor = "localhost";
 $usuario = "root";
-$senha = "81336840";
+$senha = "99323592";
 $banco = "galeria";
 
 $conn = mysqli_connect($servidor, $usuario, $senha, $banco);
@@ -564,4 +564,22 @@ function todos($conn, $tabela)
   }
 
   return $todos;
+}
+
+function remover_obra_exposicao($conn, $idExposicoes, $id_Obras)
+{
+  if (!empty($idExposicoes) && !empty($id_Obras)) {
+    $query = "DELETE FROM exposicoesobras WHERE Exposicoes_idExposicoes = ? AND Obras_idObras = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "ii", $idExposicoes, $id_Obras);
+    mysqli_stmt_execute($stmt);
+
+    if (mysqli_stmt_affected_rows($stmt) > 0) {
+      echo "Obra removida com sucesso da exposição!";
+    } else {
+      echo "Erro ao remover a obra da exposição!";
+    }
+
+    mysqli_stmt_close($stmt);
+  }
 }

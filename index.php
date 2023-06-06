@@ -70,7 +70,7 @@ $obras = obra_index($conn, $tabela1, $limit = 3);
 
     <!-- === NOVAS OBRAS === -->
     <div class="container-fluid">
-      <h2 class="section-title">ARCEBLE</h2>
+      <h2 class="section-title">Novas obras</h2>
 
       <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -86,17 +86,17 @@ $obras = obra_index($conn, $tabela1, $limit = 3);
               <div class="carousel-caption top-0 mt-4">
                 <p class="mt-5 fs-3 text-uppercase"><?php echo $obra['autor']; ?></p>
                 <h1 class="display-1 fw-bolder text-capitalize"><?php echo $obra['nome_obra']; ?></h1>
-                <a href="/pages/descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>" class="btn btn-primary px-4 py-2 fs-5 mt-5" id="button">Ver</a>
+                <a href="/pages/descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>" class="btn btn-primary px-4 py-2 fs-5 mt-5" id="button" aria-label="Ver detalhes da obra <?php echo $obra['nome_obra']; ?>">Ver</a>
               </div>
             </div>
           <?php endforeach; ?>
         </div>
 
-        <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev" aria-label="Slide anterior">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next" aria-label="Próximo slide">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
@@ -105,13 +105,13 @@ $obras = obra_index($conn, $tabela1, $limit = 3);
 
     <!-- === NOVOS EVENTOS === -->
     <div class="container-fluid">
-      <h2 class="section-title">Novos Eventos</h2>
+      <h2 class="section-title">Novo Evento</h2>
 
       <div class="card mb-3 eventos" id="card">
         <?php foreach ($exposicoes as $exposicoe) : ?>
           <div class="row g-0">
             <div class="col-md-4">
-              <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="...">
+              <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="Imagem da obra: <?php echo $obra['nome_obra']; ?>">
             </div>
             <div class="col-md-8">
               <div class="card-body">
@@ -137,7 +137,7 @@ $obras = obra_index($conn, $tabela1, $limit = 3);
         <a href="#" class="footer__icon"><i class='bx bxl-facebook-circle'></i></a>
         <a href="#" class="footer__icon"><i class='bx bxl-instagram'></i></a>
       </div>
-      <p>&#169; 2023 copyright all right reserved</p>
+      <p>&copy; 2023 ARCEBLE. Todos os direitos reservados.</p>
     </footer>
 
   </center>

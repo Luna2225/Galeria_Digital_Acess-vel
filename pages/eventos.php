@@ -27,19 +27,19 @@ $exposicoes = todos($conn, $tabela);
 <body>
   <nav class="navbar navbar-expand-lg" id="menu">
     <div class="container-fluid">
-      <a href="/index.php" class="navbar-brand disabled" id="logo">ARCEBLE</a>
+      <a href="/index.php" class="navbar-brand disabled" id="logo" aria-label="Página inicial da ARCEBLE">ARCEBLE</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link" aria-current="page" href="/index.php">HOME</a>
-          <a class="nav-link" href="sobre.php">SOBRE</a>
-          <a class="nav-link" href="contato.php">CONTATO</a>
-          <a class="nav-link" href="galeria.php">GALERIA</a>
-          <a class="nav-link active" href="#">EVENTOS</a>
-          <a class="nav-link" href="login.php">LOGIN</a>
-          <a class="nav-link" href="cadastro_pessoa.php">CADASTRO</a>
+          <a class="nav-link" href="/index.php" aria-label="Página inicial">HOME</a>
+          <a class="nav-link" href="sobre.php" aria-label="Página sobre">SOBRE</a>
+          <a class="nav-link" href="contato.php" aria-label="Página de contato">CONTATO</a>
+          <a class="nav-link" href="galeria.php" aria-label="Página da galeria">GALERIA</a>
+          <a class="nav-link active" href="#" aria-label="Página de eventos">EVENTOS</a>
+          <a class="nav-link" href="login.php" aria-label="Página de login">LOGIN</a>
+          <a class="nav-link" href="cadastro_pessoa.php" aria-label="Página de cadastro">CADASTRO</a>
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@ $exposicoes = todos($conn, $tabela);
           <div class="row g-0">
             <?php foreach ($exposicoes as $exposicoe) { ?>
               <div class="col-md-4">
-                <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="...">
+                <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="Imagem do evento <?php echo $exposicoe['Nome_expo']; ?>">
               </div>
               <div class="col-md-8">
                 <div class="card-body">
@@ -74,13 +74,13 @@ $exposicoes = todos($conn, $tabela);
     <footer class="footer">
       <p class="footer__title">ARCEBLE</p>
       <div class="footer__social">
-        <a href="#" class="footer__icon"><i class='bx bxl-github'></i></a>
-        <a href="#" class="footer__icon"><i class='bx bxl-linkedin-square'></i></a>
-        <a href="#" class="footer__icon"><i class='bx bxl-whatsapp'></i></a>
-        <a href="#" class="footer__icon"><i class='bx bxl-facebook-circle'></i></a>
-        <a href="#" class="footer__icon"><i class='bx bxl-instagram'></i></a>
+        <a href="#" class="footer__icon" aria-label="GitHub"><i class='bx bxl-github'></i></a>
+        <a href="#" class="footer__icon" aria-label="LinkedIn"><i class='bx bxl-linkedin-square'></i></a>
+        <a href="#" class="footer__icon" aria-label="WhatsApp"><i class='bx bxl-whatsapp'></i></a>
+        <a href="#" class="footer__icon" aria-label="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+        <a href="#" class="footer__icon" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
       </div>
-      <p>&#169; 2023 copyright all right reserved</p>
+      <p>&copy; 2023 ARCEBLE. Todos os direitos reservados.</p>
     </footer>
 
   </center>

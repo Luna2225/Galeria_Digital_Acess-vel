@@ -25,10 +25,17 @@ if (isset($_POST['salvar'])) {
     header("Location: " . $_SERVER['PHP_SELF'] . "?idExposicoes=" . $idExposicoes);
     exit;
 }
+
+if (isset($_GET['removerObra'])) {
+    $id_Obras = $_GET['removerObra'];
+    remover_obra_exposicao($conn, $idExposicoes, $id_Obras);
+    header("Location: " . $_SERVER['PHP_SELF'] . "?idExposicoes=" . $idExposicoes);
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="en" prefix="og: https://ogp.me/ns#">
+<html lang="pt-BR" prefix="og: https://ogp.me/ns#">
 
 <head>
     <meta property="og:title" content="The Rock" />
@@ -124,6 +131,7 @@ if (isset($_POST['salvar'])) {
                                             <h5 class="card-title"><?php echo $obraExposicao['nome_obra']; ?></h5>
                                             <p class="card-text"><?php echo $obraExposicao['autor']; ?></p>
                                             <div class="d-grid gap-2 col-6 mx-auto">
+                                                <a href="<?php echo $_SERVER['PHP_SELF'] . '?idExposicoes=' . $idExposicoes . '&removerObra=' . $obraExposicao['id_Obras']; ?>" class="btn btn-danger">Remover</a>
                                                 <a href="#" class="btn btn-primary ">Ver</a>
                                             </div>
                                         </div>

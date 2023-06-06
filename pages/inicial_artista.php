@@ -3,7 +3,7 @@ $seguranca = isset($_SESSION['id_Usuarios']) ? TRUE : header("location: login.ph
 require_once "../functions.php";
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
