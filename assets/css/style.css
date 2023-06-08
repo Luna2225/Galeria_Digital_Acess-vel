@@ -154,17 +154,17 @@ a {
   color: #000;
   text-align: center;
   font-weight: 600;
-  padding: 2rem 0;
+  padding: 1px 0;
   margin-top: 3rem;
 }
 
 .footer__title {
   font-size: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 5px;
 }
 
 .footer__social {
-  margin-bottom: 2rem;
+  margin-bottom: 5px;
 }
 
 .footer__icon {
@@ -260,6 +260,7 @@ h1 {
 
 .card-img {
   height: 350px;
+  margin-top: 4rem;
 }
 
 .card-body {
@@ -374,3 +375,7 @@ h1 {
   /* height: 650px; */
   height: 450px;
 }
+/* espaçamento das divs de eventos */
+/* .container-fluid {
+  margin-bottom: 5px;
+} */
