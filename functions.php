@@ -26,11 +26,14 @@ function login($conn)
       $_SESSION['ativa'] = TRUE;
       if ($tipo_usuario === 'artista') {
         header("location: /pages/inicial_artista.php");
+        exit(); // Termina a execução do script para evitar que o restante da página seja exibido
       } elseif ($tipo_usuario === 'anfitriao') {
         header("location: /pages/inicial_curador.php");
+        exit(); // Termina a execução do script para evitar que o restante da página seja exibido
       }
     } else {
-      echo "Usuário e senha não encontrados";
+      header("location: /pages/login.php?erro=1"); // Redireciona para a página de login com o parâmetro 'erro' definido como 1
+      exit(); // Termina a execução do script para evitar que o restante da página seja exibido
     }
   }
 }

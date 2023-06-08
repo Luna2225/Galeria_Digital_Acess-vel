@@ -3,6 +3,11 @@ require_once "../functions.php";
 if (isset($_POST['acessar'])) {
   login($conn);
 }
+
+// Verifica se há um erro definido na URL
+if (isset($_GET['erro']) && $_GET['erro'] == 1) {
+  $error_message = "Usuário e senha não encontrados";
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -46,6 +51,11 @@ if (isset($_POST['acessar'])) {
 
   <center>
     <div class="container-fluid">
+      <?php if (isset($_GET['erro']) && $_GET['erro'] == 1) : ?>
+        <div class="alert alert-danger" role="alert">
+          Usuário e senha não encontrados
+        </div>
+      <?php endif; ?>
       <form action="" class="contact__form" method="post">
         <h2 class="section">Login</h2>
         <label>O que você é?</label> <br>

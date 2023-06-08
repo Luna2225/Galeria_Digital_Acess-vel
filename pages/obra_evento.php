@@ -89,6 +89,7 @@ if (isset($_GET['removerObra'])) {
 
 
                 <!-- Modal -->
+                <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
@@ -104,9 +105,18 @@ if (isset($_GET['removerObra'])) {
                                                 <img src="<?php echo $obra['imagem']; ?>" alt="">
                                                 <h6><?php echo $obra['nome_obra']; ?></h6>
                                                 <p><?php echo $obra['autor']; ?></p>
+                                                <?php
+                                                $obraSelecionada = false;
+                                                foreach ($obrasExposicao as $obraExposicao) {
+                                                    if ($obraExposicao['id_Obras'] == $obra['id_Obras']) {
+                                                        $obraSelecionada = true;
+                                                        break;
+                                                    }
+                                                }
+                                                ?>
                                                 <label>
-                                                    <input type="checkbox" name="obras[]" value="<?php echo $obra['id_Obras']; ?>" class="input">
-                                                    <i class="btn btn-primary bt">Selecionar</i>
+                                                    <input type="checkbox" name="obras[]" value="<?php echo $obra['id_Obras']; ?>" class="input" style="display: none;">
+                                                    <i class="btn btn-primary bt"><?php echo $obraSelecionada ? 'Selecionado' : 'Selecionar'; ?></i>
                                                 </label>
                                             </div>
                                         <?php } ?>
@@ -163,6 +173,18 @@ if (isset($_GET['removerObra'])) {
             });
         }
     </script>
+    <!-- Adicione este código JavaScript no final do seu arquivo -->
+    <script>
+        var obras = document.getElementsByClassName("bt");
+
+        for (var i = 0; i < obras.length; i++) {
+            var obra = obras[i];
+            if (obra.textContent === "Selecionado") {
+                obra.classList.add("selecionado");
+            }
+        }
+    </script>
+
 </body>
 
 </html>

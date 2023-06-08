@@ -43,29 +43,21 @@ $obrasExposicao = listar_obras_exposicao($conn, $idExposicoes, $tabelaExposicoes
 
     <nav class="navbar" id="menu">
         <div class="container-fluid">
-            <a class="navbar-brand" href="eventos.php" id="logo"><i class="fa-solid fa-arrow-left"></i> ARCEBLE</a>
+            <a class="navbar-brand" href="javascript:history.back()" id="logo"><i class="fa-solid fa-arrow-left"></i> ARCEBLE</a>
         </div>
     </nav>
 
     <center>
         <div class="container-fluid" id="container">
             <?php if ($exposicao) { ?>
-
-                <!-- === MIGALHAS DE PÃO === -->
-                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);">
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="eventos.php">Eventos</a></li>
-                        <li class="breadcrumb-item acitve">Descrição do Evento</li>
-                    </ul>
-                </nav>
-
-                <img src="<?php echo $exposicao['Imagem']; ?>" class="img-fluid img_even" alt="..."><br>
+                <img src="<?php echo $exposicao['Imagem']; ?>" class="img-fluid img_even" alt="<?php echo $exposicao['Desc_expo']; ?>"><br>
                 <audio controls autoplay>
                     <source src="<?php echo $exposicao['Audio_expo']; ?>" type="audio/mpeg">
+                    <track kind="captions" src="<?php echo $exposicao['Desc_expo']; ?>" srclang="pt-BR" label="Português" default>
                 </audio>
 
                 <h1><?php echo $exposicao['Nome_expo']; ?>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" aria-label="Compartilhar">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
                             <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z" />
                         </svg>

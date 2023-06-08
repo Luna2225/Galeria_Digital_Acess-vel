@@ -38,20 +38,12 @@ if (isset($_GET['id_Obras'])) {
 
   <nav class="navbar" id="menu">
     <div class="container-fluid">
-      <a class="navbar-brand" href="../index.php" id="logo"><i class="fa-solid fa-arrow-left"></i> ARCEBLE</a>
+      <a class="navbar-brand" href="javascript:history.back()" id="logo"><i class="fa-solid fa-arrow-left"></i> ARCEBLE</a>
     </div>
   </nav>
 
   <center>
     <div class="container-fluid" id="container">
-
-      <!-- === MIGALHAS DE PÃO === -->
-      <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);">
-        <ul class="breadcrumb">
-          <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
-          <li class="breadcrumb-item acitve">Descrição da Obra</li>
-        </ul>
-      </nav>
       <?php if ($obras) { ?>
         <img src="<?php echo $obras['imagem']; ?>" class="img-fluid obra" alt="<?php echo $obras['LongaDesc']; ?>"><br>
         <audio controls autoplay>
