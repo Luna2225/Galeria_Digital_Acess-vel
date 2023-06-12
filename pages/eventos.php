@@ -21,7 +21,7 @@ $exposicoes = todos($conn, $tabela);
 
   <link rel="icon" type="image/png" href="/assets/logo/logoarceble copy.png" />
 
-  <title>Home | Arceble</title>
+  <title>Eventos | Arceble</title>
 </head>
 
 <body>
@@ -49,23 +49,25 @@ $exposicoes = todos($conn, $tabela);
     <!-- === NOVOS EVENTOS === -->
     <div class="container-fluid">
       <?php if ($exposicoes) { ?>
-        <div class="card mb-3 tela_eventos">
-          <div class="row g-0">
-            <?php foreach ($exposicoes as $exposicoe) { ?>
-              <div class="col-md-4">
-                <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="Imagem do evento <?php echo $exposicoe['Nome_expo']; ?>">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h1 class="card-title"><?php echo $exposicoe['Nome_expo']; ?></h1>
-                  <p class="card-text"><?php echo $exposicoe['Desc_expo']; ?></p>
-                  <div class="d-grid gap-2 col-6 mx-auto">
-                    <a href="descricao_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>" class="btn btn-primary px-4 py-2" id="btn">Mais</a>
+        <div class="card tela_eventos">
+          <?php foreach ($exposicoes as $exposicoe) { ?>
+            <div class="evento mb-4">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="Imagem do evento <?php echo $exposicoe['Desc_Imagem']; ?>">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h1 class="card-title"><?php echo $exposicoe['Nome_expo']; ?></h1>
+                    <p class="card-text"><?php echo $exposicoe['Desc_expo']; ?></p>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                      <a href="descricao_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>&origem=eventos" class="btn btn-primary px-4 py-2" id="btn">Mais</a>
+                    </div>
                   </div>
                 </div>
               </div>
-            <?php } ?>
-          </div>
+            </div>
+          <?php } ?>
         </div>
       <?php } ?>
     </div>

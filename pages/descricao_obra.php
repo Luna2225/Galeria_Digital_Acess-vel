@@ -2,17 +2,43 @@
 session_start();
 require_once "../functions.php";
 
+// Verifique se o parâmetro id_Obras está presente na URL
 if (isset($_GET['id_Obras'])) {
   $id_Obras = $_GET['id_Obras'];
   $tabela = "obras";
-  $obras = todas_obras($conn, $id_Obras, $tabela);
+  $tipo = "id_Obras";
+  $obras = consultar_obras($conn, $id_Obras, $tabela, $tipo);
+
+  // Verifique se o parâmetro origem está presente na URL
+  if (isset($_GET['origem']) && $_GET['origem'] === "galeria") {
+    $origem = $_GET['origem'];
+    $breadcrumbs = [
+      ["Galeria", "galeria.php"],
+      ["Descrição da obra", ""]
+    ];
+  } elseif (isset($_GET['origem']) && $_GET['origem'] === "descricao_evento") {
+    $origem = $_GET['origem'];
+    $breadcrumbs = [
+      ["Eventos", "eventos.php"],
+      ["Descrição do evento", ""]
+    ];
+  } else {
+    // Caso a origem seja diferente de "galeria" ou "descricao_evento" ou não esteja definida
+    $breadcrumbs = [
+      ["Página inicial", "/index.php"],
+      ["Descrição da obra", ""]
+    ];
+  }
 } else {
-  // Caso contrário, defina um valor padrão ou exiba uma mensagem de erro
-  $idExposicoes = 1; // Exemplo: assume o ID 1 caso não esteja presente na URL
-  // Ou exiba uma mensagem de erro e interrompa a execução da página
-  // echo "ID de exposição não fornecido!";
-  // exit;
+  // Caso o parâmetro id_Obras não esteja presente, redirecione o usuário para a página galeria.php
+  header("Location: galeria.php");
+  exit; // Encerre a execução deste script após o redirecionamento
 }
+
+$Artista_id = $obras['Artista_id']; // ID do autor desejado
+$tabela = "obras"; // Nome da tabela de obras
+$tipo = "Artista_id";
+$autor = consultar_obras($conn, $Artista_id, $tabela, $tipo);
 ?>
 
 <!DOCTYPE html>
@@ -42,8 +68,22 @@ if (isset($_GET['id_Obras'])) {
     </div>
   </nav>
 
+  <!-- Migalhas de pão -->
+  <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);">
+    <ul class="breadcrumb">
+      <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+        <?php if (!empty($breadcrumb[1])) { ?>
+          <li class="breadcrumb-item"><a href="<?php echo $breadcrumb[1]; ?>"><?php echo $breadcrumb[0]; ?></a></li>
+        <?php } else { ?>
+          <li class="breadcrumb-item" aria-current="page"><?php echo $breadcrumb[0]; ?></li>
+        <?php } ?>
+      <?php } ?>
+    </ul>
+  </nav>
+
   <center>
     <div class="container-fluid" id="container">
+
       <?php if ($obras) { ?>
         <img src="<?php echo $obras['imagem']; ?>" class="img-fluid obra" alt="<?php echo $obras['LongaDesc']; ?>"><br>
         <audio controls autoplay>
@@ -80,47 +120,34 @@ if (isset($_GET['id_Obras'])) {
 
       <hr>
 
-      <h2>Obras Recomendadas</h2>
+      <h2>Obras do mesmo autor</h2>
       <div class="container-fluid im">
         <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col">
-            <div class="card img">
-              <img src="../assets/img/01.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <div class="d-grid gap-2 col-6 mx-auto">
-                  <a href="#" class="btn btn-primary ">Ver</a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <?php
+          // Verifica se existem obras do mesmo autor
+          if ($obras) {
 
-          <div class="col">
-            <div class="card img">
-              <img src="../assets/img/01.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <div class="d-grid gap-2 col-6 mx-auto">
-                  <a href="#" class="btn btn-primary ">Ver</a>
+            // Loop para exibir cada obra do mesmo autor
+            foreach ($autor as $obra) {
+          ?>
+              <div class="col">
+                <div class="card img">
+                  <img src="<?php echo $obra['imagem']; ?>" class="card-img-top" alt="<?php echo $obra['LongaDesc']; ?>">
+                  <div class="card-body">
+                    <h5 class="card-title"><?php echo $obra['nome_obra']; ?></h5>
+                    <p class="card-text"><?php echo $obra['Descricao']; ?></p>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                      <a href="#" class="btn btn-primary">Ver</a>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card img">
-              <img src="../assets/img/01.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <div class="d-grid gap-2 col-6 mx-auto">
-                  <a href="#" class="btn btn-primary ">Ver</a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <?php
+            }
+          } else {
+            echo "<p>Nenhuma obra encontrada.</p>";
+          }
+          ?>
         </div>
       </div>
     </div>

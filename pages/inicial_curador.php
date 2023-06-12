@@ -14,7 +14,7 @@ require_once "../functions.php";
 
     <script src="https://kit.fontawesome.com/54ae61cac0.js" crossorigin="anonymous"></script>
 
-    <title>Home| Anfitrião</title>
+    <title>Home | Curador</title>
 
     <link rel="icon" type="image/png" href="../assets/logo/logoarceble copy.png" />
 
@@ -57,7 +57,8 @@ require_once "../functions.php";
                     <h2>Tem certeza que deseja deletar o evento <?php echo $_GET['Nome_expo']; ?></h2>
                     <form action="" method="post">
                         <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
-                        <input type="submit" name="deletar_exposicoes" value="Deletar">
+                        <input type="submit" name="deletar_exposicoes" class="btn btn-primary px-4 py-2" value="Deletar">
+                        <a href="javascript:history.back()" class="btn btn-primary px-4 py-2">Cancelar</a>
                     </form>
                 <?php } ?>
 
@@ -70,7 +71,7 @@ require_once "../functions.php";
 
                 <div class="card mb-3 tela_eventos">
                     <?php foreach ($exposicoes as $exposicoe) : ?>
-                        <div class="row g-0">
+                        <div class="row g-0 mb-4">
                             <div class="col-md-4">
                                 <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="<?php echo $exposicoe['Desc_expo']; ?>">
                             </div>
@@ -79,7 +80,7 @@ require_once "../functions.php";
                                     <h1 class="card-title"><?php echo $exposicoe['Nome_expo']; ?></h1>
                                     <p class="card-text"><?php echo $exposicoe['Desc_expo']; ?></p>
                                     <div class="gap-2 col-6 mx-auto">
-                                        <a href="editar_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>&Nome_expo=<?php echo $exposicoe['Nome_expo']; ?>&Desc_expo=<?php echo $exposicoe['Desc_expo']; ?>&Imagem=<?php echo $exposicoe['Imagem']; ?>&DataInicial=<?php echo $exposicoe['DataInicial']; ?>&DataFinal=<?php echo $exposicoe['DataFinal']; ?>&Audio_expo=<?php echo $exposicoe['Audio_expo']; ?>&id_Anfitriao=<?php echo $exposicoe['id_Anfitriao']; ?>" class="btn btn-primary px-4 py-2" id="btn">Editar</a>
+                                        <a href="editar_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>&Nome_expo=<?php echo $exposicoe['Nome_expo']; ?>&Desc_expo=<?php echo $exposicoe['Desc_expo']; ?>&Imagem=<?php echo $exposicoe['Imagem']; ?>&Desc_Imagem=<?php echo $exposicoe['Desc_Imagem']; ?>&DataInicial=<?php echo $exposicoe['DataInicial']; ?>&DataFinal=<?php echo $exposicoe['DataFinal']; ?>&Audio_expo=<?php echo $exposicoe['Audio_expo']; ?>&id_Anfitriao=<?php echo $exposicoe['id_Anfitriao']; ?>" class="btn btn-primary px-4 py-2" id="btn">Editar</a>
                                         <a href="inicial_curador.php?id=<?php echo $exposicoe['idExposicoes']; ?>&Nome_expo=<?php echo $exposicoe['Nome_expo']; ?>" class="btn btn-primary px-4 py-2" id="btn">Excluir</a>
                                         <a href="obra_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>" class="btn btn-primary px-4 py-2" id="btn">Selecionar</a>
                                     </div>

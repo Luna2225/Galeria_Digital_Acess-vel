@@ -19,6 +19,20 @@ $obras = listar_obras($conn, $tabela); // Função para obter todas as obras cad
 $tabelaExposicoesObras = "exposicoesobras";
 $obrasExposicao = listar_obras_exposicao($conn, $idExposicoes, $tabelaExposicoesObras);
 
+// Verifique se o parâmetro origem está presente na URL
+if (isset($_GET['origem']) && $_GET['origem'] === "eventos") {
+    $origem = $_GET['origem'];
+    $breadcrumbs = [
+        ["Eventos", "eventos.php"],
+        ["Descrição do evento", ""]
+    ];
+} else {
+    // Caso a origem seja diferente de "galeria" ou não esteja definida
+    $breadcrumbs = [
+        ["Página inicial", "/index.php"],
+        ["Descrição do evento", ""]
+    ];
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -47,10 +61,23 @@ $obrasExposicao = listar_obras_exposicao($conn, $idExposicoes, $tabelaExposicoes
         </div>
     </nav>
 
+    <!-- Migalhas de pão -->
+    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);">
+        <ul class="breadcrumb">
+            <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+                <?php if (!empty($breadcrumb[1])) { ?>
+                    <li class="breadcrumb-item"><a href="<?php echo $breadcrumb[1]; ?>"><?php echo $breadcrumb[0]; ?></a></li>
+                <?php } else { ?>
+                    <li class="breadcrumb-item" aria-current="page"><?php echo $breadcrumb[0]; ?></li>
+                <?php } ?>
+            <?php } ?>
+        </ul>
+    </nav>
+
     <center>
         <div class="container-fluid" id="container">
             <?php if ($exposicao) { ?>
-                <img src="<?php echo $exposicao['Imagem']; ?>" class="img-fluid img_even" alt="<?php echo $exposicao['Desc_expo']; ?>"><br>
+                <img src="<?php echo $exposicao['Imagem']; ?>" class="img-fluid obra" alt="<?php echo $exposicao['Desc_Imagem']; ?>"><br>
                 <audio controls autoplay>
                     <source src="<?php echo $exposicao['Audio_expo']; ?>" type="audio/mpeg">
                     <track kind="captions" src="<?php echo $exposicao['Desc_expo']; ?>" srclang="pt-BR" label="Português" default>
@@ -91,12 +118,12 @@ $obrasExposicao = listar_obras_exposicao($conn, $idExposicoes, $tabelaExposicoes
                             <?php foreach ($obrasExposicao as $obraExposicao) { ?>
                                 <div class="col">
                                     <div class="card img">
-                                        <img src="<?php echo $obraExposicao['imagem']; ?>" class="card-img-top" alt="...">
+                                        <img src="<?php echo $obraExposicao['imagem']; ?>" class="card-img-top" alt="<?php echo $obraExposicao['LongaDesc']; ?>">
                                         <div class="card-body">
                                             <h5 class="card-title"><?php echo $obraExposicao['nome_obra']; ?></h5>
                                             <p class="card-text"><?php echo $obraExposicao['autor']; ?></p>
                                             <div class="d-grid gap-2 col-6 mx-auto">
-                                                <a href="descricao_obra.php?id_Obras=<?php echo $obraExposicao['id_Obras']; ?>" class="btn btn-primary ">Ver</a>
+                                                <a href="descricao_obra.php?id_Obras=<?php echo $obraExposicao['id_Obras']; ?>&origem=descricao_evento" class="btn btn-primary ">Ver</a>
                                             </div>
                                         </div>
                                     </div>

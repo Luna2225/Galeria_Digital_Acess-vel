@@ -63,7 +63,7 @@ $obras = obra_index($conn, $tabela1, $limit = 3);
           </div>
         </div>
         <div class="col-md-4">
-          <img src="assets/logo/logoarceble copy.png" class="img-fluid" alt="...">
+          <img src="assets/logo/logoarceble copy.png" class="img-fluid" alt="Logotipo da ARCEBLE">
         </div>
       </div>
     </div>
@@ -111,7 +111,7 @@ $obras = obra_index($conn, $tabela1, $limit = 3);
         <?php foreach ($exposicoes as $exposicoe) : ?>
           <div class="row g-0">
             <div class="col-md-4">
-              <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="Imagem da obra: <?php echo $obra['nome_obra']; ?>">
+              <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="<?php echo $exposicoe['Desc_Imagem']; ?>">
             </div>
             <div class="col-md-8">
               <div class="card-body">

@@ -49,8 +49,15 @@ require_once "../functions.php";
           $id_Obras = $_GET['id_Obras'];
           $tabela = "obras";
           $obra = listar_obra($conn, $tabela, $id_Obras);
-          AtualizarObra($conn);
+
+          if (isset($_POST['atualizarObra'])) {
+            AtualizarObra($conn);
+          }
         ?>
+          <?php if (isset($_GET['atualizacaoSucesso'])) { ?>
+            <h2>Obra atualizada com sucesso!</h2>
+          <?php } ?>
+
           <h2>Editando a obra: <?php echo $_GET['nome_obra']; ?></h2>
 
         <?php } ?>
@@ -75,9 +82,11 @@ require_once "../functions.php";
           </p>
 
           <b><label>Descrição da obra</label></b>
-          <textarea value="<?php echo $_GET['Descricao']; ?>" name="Descricao" id="" cols="0" rows="10" class="contact__input" required placeholder="Descreva aqui"></textarea>
-          <b><label>O que te motivou a produzir sua obra</label></b><br>
-          <textarea value="<?php echo $_GET['LongaDesc']; ?>" name="LongaDesc" id="" cols="0" rows="10" class="contact__input" required placeholder="Digite aqui"></textarea>
+          <textarea name="Descricao" id="" cols="0" rows="10" class="contact__input" placeholder="Descreva aqui"><?php echo $_GET['Descricao']; ?></textarea>
+
+          <b><label>Descreva a imagem da obra</label></b><br>
+          <textarea name="LongaDesc" id="" cols="0" rows="10" class="contact__input" placeholder="Descreva aqui"><?php echo $_GET['LongaDesc']; ?></textarea>
+
           <input type="submit" value="Cadastrar" name="atualizarObra" class="button1 button">
         </form>
       <?php } ?>

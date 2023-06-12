@@ -60,6 +60,9 @@ if (isset($_POST['cadastrarExposicao'])) {
           <input type="file" class="input1 contact__input" id="inputGroupFile02" name="Imagem">
         </p>
 
+        <b><label class="input-group">Descrição da imagem do evento</label></b>
+        <textarea name="Desc_Imagem" id="" cols="0" rows="2" class="contact__input" required placeholder="Descreva aqui a imagem do evento"></textarea>
+
         <b><label class="input-group">Data inicial do evento</label></b>
         <input name="DataInicial" type="date" class="contact__input">
 

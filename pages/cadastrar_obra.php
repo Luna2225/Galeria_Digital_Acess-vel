@@ -53,7 +53,7 @@ if (isset($_POST['cadastrarObra'])) {
         <input type="text" placeholder="Nome da obra" class="contact__input" name="nome_obra">
 
         <p>
-          <b><label class="input-group" for="inputGroupFile02">Imagens</label></b>
+          <b><label class="input-group" for="inputGroupFile02">Imagem</label></b>
           <input type="file" class="input1 contact__input" id="inputGroupFile02" name="imagem">
         </p>
 
@@ -64,8 +64,10 @@ if (isset($_POST['cadastrarObra'])) {
 
         <b><label>Descrição da obra</label></b>
         <textarea name="Descricao" id="" cols="0" rows="10" class="contact__input" required placeholder="Descreva aqui"></textarea>
-        <b><label>O que te motivou a produzir sua obra</label></b><br>
-        <textarea name="LongaDesc" id="" cols="0" rows="10" class="contact__input" required placeholder="Digite aqui"></textarea>
+        
+        <b><label>Descreva a imagem da obra</label></b><br>
+        <textarea name="LongaDesc" id="" cols="0" rows="10" class="contact__input" required placeholder="Descreva aqui"></textarea>
+        
         <input type="submit" value="Cadastrar" name="cadastrarObra" class="button1 button">
       </form>
     </div>

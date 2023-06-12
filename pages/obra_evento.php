@@ -53,6 +53,7 @@ if (isset($_GET['removerObra'])) {
 
     <script src="https://kit.fontawesome.com/54ae61cac0.js" crossorigin="anonymous"></script>
 
+    <link rel="icon" type="image/png" href="../assets/logo/logoarceble copy.png" />
     <link rel="stylesheet" href="../assets/css/autor.css">
     <link rel="stylesheet" href="../assets/css/teste-evento.css">
 
@@ -71,7 +72,6 @@ if (isset($_GET['removerObra'])) {
     <center>
         <div class="container-fluid" id="container">
             <?php if ($seguranca && $exposicao) { ?>
-
                 <!-- Código HTML para exibir os dados do evento -->
                 <img src="<?php echo $exposicao['Imagem']; ?>" class="img-fluid img_even" alt="..."><br>
                 <audio controls autoplay>
@@ -87,8 +87,6 @@ if (isset($_GET['removerObra'])) {
                 <h2>Obras Cadastradas Neste Evento
                 </h2>
 
-
-                <!-- Modal -->
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable">

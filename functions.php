@@ -1,7 +1,7 @@
 <?php
 $servidor = "localhost";
 $usuario = "root";
-$senha = "81336840";
+$senha = "99323592";
 $banco = "galeria";
 
 $conn = mysqli_connect($servidor, $usuario, $senha, $banco);
@@ -180,7 +180,6 @@ function deletar($conn, $tabela, $id_Obras)
   }
 }
 
-
 function deletar_exposicoes($conn, $tabela, $idExposicoes)
 {
   if (!empty($idExposicoes)) {
@@ -206,7 +205,6 @@ function deletar_exposicoes($conn, $tabela, $idExposicoes)
     mysqli_stmt_close($stmtExposicoes);
   }
 }
-
 
 function cadastrarObra($conn, $Artista_id)
 {
@@ -293,19 +291,9 @@ function AtualizarObra($conn)
       return;
     }
 
-    if ($imagem['error'] !== UPLOAD_ERR_OK || $audiodescricao['error'] !== UPLOAD_ERR_OK) {
-      echo "Erro ao enviar arquivos.";
-      return;
-    }
-
-    if (empty($autor) || empty($Descricao) || empty($nome_obra) || empty($LongaDesc)) {
-      echo "Por favor, preencha todos os campos.";
-      return;
-    }
-
     // Verificar comprimento máximo dos campos de texto, se aplicável
     $max_length_autor = 100; // exemplo de comprimento máximo permitido
-    if (strlen($autor) > $max_length_autor) {
+    if (!empty($autor) && strlen($autor) > $max_length_autor) {
       echo "O campo 'Autor' excede o comprimento máximo permitido.";
       return;
     }
@@ -315,38 +303,69 @@ function AtualizarObra($conn)
     $allowed_image_types = array("jpeg", "jpg", "png"); // tipos de imagem permitidos
     $allowed_audio_types = array("mp3", "wav", "mp4"); // tipos de áudio permitidos
 
-    if ($imagem['size'] > $max_file_size || !in_array(strtolower(pathinfo($imagem['name'], PATHINFO_EXTENSION)), $allowed_image_types)) {
+    if (!empty($imagem['tmp_name']) && ($imagem['size'] > $max_file_size || !in_array(strtolower(pathinfo($imagem['name'], PATHINFO_EXTENSION)), $allowed_image_types))) {
       echo "Por favor, selecione uma imagem válida com tamanho máximo de 1MB.";
       return;
     }
 
-    if ($audiodescricao['size'] > $max_file_size || !in_array(strtolower(pathinfo($audiodescricao['name'], PATHINFO_EXTENSION)), $allowed_audio_types)) {
+    if (!empty($audiodescricao['tmp_name']) && ($audiodescricao['size'] > $max_file_size || !in_array(strtolower(pathinfo($audiodescricao['name'], PATHINFO_EXTENSION)), $allowed_audio_types))) {
       echo "Por favor, selecione um arquivo de áudio válido com tamanho máximo de 1MB.";
       return;
     }
 
-    $imagem_extensao = strtolower(pathinfo($imagem['name'], PATHINFO_EXTENSION));
-    $imagem_nome = uniqid() . "." . $imagem_extensao;
-    $imagem_caminho = '../assets/img/';
+    // Processar a imagem, se fornecida
+    $imagem_caminho_completo = '';
+    if (!empty($imagem['tmp_name'])) {
+      $imagem_extensao = strtolower(pathinfo($imagem['name'], PATHINFO_EXTENSION));
+      $imagem_nome = uniqid() . "." . $imagem_extensao;
+      $imagem_caminho = '../assets/img/';
+      $imagem_caminho_completo = $imagem_caminho . $imagem_nome;
+      move_uploaded_file($imagem['tmp_name'], $imagem_caminho . $imagem_nome);
+    }
 
-    $audiodescricao_extensao = strtolower(pathinfo($audiodescricao['name'], PATHINFO_EXTENSION));
-    $audiodescricao_nome = uniqid() . "." . $audiodescricao_extensao;
-    $audiodescricao_caminho = '../assets/audio/';
+    // Processar o áudio, se fornecido
+    $audiodescricao_caminho_completo = '';
+    if (!empty($audiodescricao['tmp_name'])) {
+      $audiodescricao_extensao = strtolower(pathinfo($audiodescricao['name'], PATHINFO_EXTENSION));
+      $audiodescricao_nome = uniqid() . "." . $audiodescricao_extensao;
+      $audiodescricao_caminho = '../assets/audio/';
+      $audiodescricao_caminho_completo = $audiodescricao_caminho . $audiodescricao_nome;
+      move_uploaded_file($audiodescricao['tmp_name'], $audiodescricao_caminho . $audiodescricao_nome);
+    }
 
-    $imagem_caminho_completo = $imagem_caminho . $imagem_nome;
-    $audiodescricao_caminho_completo = $audiodescricao_caminho . $audiodescricao_nome;
+    // Executar a atualização dos dados no banco de dados
+    $query = "UPDATE obras SET";
 
-    move_uploaded_file($imagem['tmp_name'], $imagem_caminho . $imagem_nome);
-    move_uploaded_file($audiodescricao['tmp_name'], $audiodescricao_caminho . $audiodescricao_nome);
+    if (!empty($autor)) {
+      $query .= " autor='$autor',";
+    }
 
-    $dataCriacao = date('Y-m-d');
+    if (!empty($Descricao)) {
+      $query .= " Descricao='$Descricao',";
+    }
 
-    $query = "UPDATE obras SET autor='$autor', Descricao='$Descricao', nome_obra='$nome_obra', imagem='$imagem_caminho_completo', dataCriacao='$dataCriacao', LongaDesc='$LongaDesc', audiodescricao='$audiodescricao_caminho_completo', Artista_id='$Artista_id' WHERE id_Obras='$id_Obras'";
+    if (!empty($nome_obra)) {
+      $query .= " nome_obra='$nome_obra',";
+    }
+
+    if (!empty($imagem_caminho_completo)) {
+      $query .= " imagem='$imagem_caminho_completo',";
+    }
+
+    if (!empty($LongaDesc)) {
+      $query .= " LongaDesc='$LongaDesc',";
+    }
+
+    if (!empty($audiodescricao_caminho_completo)) {
+      $query .= " audiodescricao='$audiodescricao_caminho_completo',";
+    }
+
+    $query .= " Artista_id='$Artista_id' WHERE id_Obras='$id_Obras'";
+
     $resultado = mysqli_query($conn, $query);
 
     if ($resultado) {
-      echo "Obra atualizada com sucesso!";
-      header("location: inicial_artista.php");
+      header("Location: /pages/inicial_artista.php");
     } else {
       echo "Erro ao atualizar obra: " . mysqli_error($conn);
     }
@@ -359,6 +378,7 @@ function cadastrarExposicao($conn, $id_Anfitriao)
     $idExposicoes = rand(1, 999999);
     $Nome_expo = mysqli_real_escape_string($conn, $_POST['Nome_expo']);
     $Desc_expo = mysqli_real_escape_string($conn, $_POST['Desc_expo']);
+    $Desc_Imagem = mysqli_real_escape_string($conn, $_POST['Desc_Imagem']);
     $Imagem = $_FILES['Imagem'];
     $DataInicial = $_POST['DataInicial'];
     $DataFinal = $_POST['DataFinal'];
@@ -402,7 +422,7 @@ function cadastrarExposicao($conn, $id_Anfitriao)
     $id_Anfitriao = $_SESSION['id_Usuarios'];
 
     // Executar a inserção dos dados no banco de dados
-    $query = "INSERT INTO exposicoes (idExposicoes, Nome_expo, Desc_expo, Imagem, DataInicial, DataFinal, Audio_expo, id_Anfitriao) VALUES ('$idExposicoes', '$Nome_expo', '$Desc_expo', '$imagem_caminho_completo', '$DataInicial', '$DataFinal', '$audio_caminho_completo', '$id_Anfitriao')";
+    $query = "INSERT INTO exposicoes (idExposicoes, Nome_expo, Desc_expo, Imagem, Desc_Imagem, DataInicial, DataFinal, Audio_expo, id_Anfitriao) VALUES ('$idExposicoes', '$Nome_expo', '$Desc_expo', '$imagem_caminho_completo', '$Desc_Imagem', '$DataInicial', '$DataFinal', '$audio_caminho_completo', '$id_Anfitriao')";
     $resultado = mysqli_query($conn, $query);
 
     if ($resultado) {
@@ -416,7 +436,6 @@ function cadastrarExposicao($conn, $id_Anfitriao)
 
 function atualizarExposicao($conn)
 {
-
   if (!isset($_SESSION['id_Usuarios'])) {
     header("Location: login.php");
     exit;
@@ -437,58 +456,75 @@ function atualizarExposicao($conn)
       return;
     }
 
-    // Verificar se os arquivos foram enviados corretamente
-    if ($Imagem['error'] != UPLOAD_ERR_OK || $Audio_expo['error'] != UPLOAD_ERR_OK) {
-      echo "Erro ao enviar arquivos: " . $Imagem['error'] . ", " . $Audio_expo['error'];
-      return;
-    }
-
-    // Validar os dados recebidos do formulário
-    if (empty($Nome_expo) || empty($Desc_expo) || empty($DataInicial) || empty($DataFinal)) {
-      echo "Por favor, preencha todos os campos.";
-      return;
-    }
-
     // Validação de tamanho e tipo de arquivo
     $max_file_size = 80048576; // exemplo de tamanho máximo permitido (1MB)
     $allowed_image_types = array("jpeg", "jpg", "png", "webp"); // tipos de imagem permitidos
     $allowed_audio_types = array("mp3", "wav", "mp4"); // tipos de áudio permitidos
 
-    if ($Imagem['size'] > $max_file_size || !in_array(strtolower(pathinfo($Imagem['name'], PATHINFO_EXTENSION)), $allowed_image_types)) {
-      echo "Por favor, selecione uma imagem válida com tamanho máximo de 1MB.";
-      return;
+    $imagem_caminho_completo = "";
+    if (!empty($Imagem['tmp_name']) && $Imagem['size'] > 0 && $Imagem['size'] <= $max_file_size && in_array(strtolower(pathinfo($Imagem['name'], PATHINFO_EXTENSION)), $allowed_image_types)) {
+      // Obter a extensão do arquivo de imagem
+      $imagem_extensao = strtolower(pathinfo($Imagem['name'], PATHINFO_EXTENSION));
+
+      // Gerar um nome único para o arquivo de imagem
+      $imagem_nome = uniqid() . "." . $imagem_extensao;
+
+      // Mover o arquivo de imagem para o diretório de uploads
+      $imagem_caminho = '../assets/img/';
+      move_uploaded_file($Imagem['tmp_name'], $imagem_caminho . $imagem_nome);
+
+      $imagem_caminho_completo = $imagem_caminho . $imagem_nome;
     }
 
-    if ($Audio_expo['size'] > $max_file_size || !in_array(strtolower(pathinfo($Audio_expo['name'], PATHINFO_EXTENSION)), $allowed_audio_types)) {
-      echo "Por favor, selecione um arquivo de áudio válido com tamanho máximo de 1MB.";
-      return;
+    $audio_caminho_completo = "";
+    if (!empty($Audio_expo['tmp_name']) && $Audio_expo['size'] > 0 && $Audio_expo['size'] <= $max_file_size && in_array(strtolower(pathinfo($Audio_expo['name'], PATHINFO_EXTENSION)), $allowed_audio_types)) {
+      // Obter a extensão do arquivo de áudio
+      $audio_extensao = strtolower(pathinfo($Audio_expo['name'], PATHINFO_EXTENSION));
+
+      // Gerar um nome único para o arquivo de áudio
+      $audio_nome = uniqid() . "." . $audio_extensao;
+
+      // Mover o arquivo de áudio para o diretório de uploads
+      $audio_caminho = '../assets/audio/';
+      move_uploaded_file($Audio_expo['tmp_name'], $audio_caminho . $audio_nome);
+
+      $audio_caminho_completo = $audio_caminho . $audio_nome;
     }
-
-    // Obter a extensão do arquivo de imagem
-    $imagem_extensao = strtolower(pathinfo($Imagem['name'], PATHINFO_EXTENSION));
-
-    // Gerar um nome único para o arquivo de imagem
-    $imagem_nome = uniqid() . "." . $imagem_extensao;
-
-    // Mover o arquivo de imagem para o diretório de uploads
-    $imagem_caminho = '../assets/img/';
-    move_uploaded_file($Imagem['tmp_name'], $imagem_caminho . $imagem_nome);
-
-    // Obter a extensão do arquivo de áudio
-    $audio_extensao = strtolower(pathinfo($Audio_expo['name'], PATHINFO_EXTENSION));
-
-    // Gerar um nome único para o arquivo de áudio
-    $audio_nome = uniqid() . "." . $audio_extensao;
-
-    // Mover o arquivo de áudio para o diretório de uploads
-    $audio_caminho = '../assets/audio/';
-    move_uploaded_file($Audio_expo['tmp_name'], $audio_caminho . $audio_nome);
-
-    $imagem_caminho_completo = $imagem_caminho . $imagem_nome;
-    $audio_caminho_completo = $audio_caminho . $audio_nome;
 
     // Executar a atualização dos dados no banco de dados
-    $query = "UPDATE exposicoes SET Nome_expo='$Nome_expo', Desc_expo='$Desc_expo', Imagem='$imagem_caminho_completo', DataInicial='$DataInicial', DataFinal='$DataFinal', Audio_expo='$audio_caminho_completo', id_Anfitriao='$id_Anfitriao' WHERE idExposicoes=$idExposicoes";
+    $query = "UPDATE exposicoes SET";
+
+    if (!empty($Nome_expo)) {
+      $query .= " Nome_expo='$Nome_expo',";
+    }
+
+    if (!empty($Desc_expo)) {
+      $query .= " Desc_expo='$Desc_expo',";
+    }
+
+    if (!empty($imagem_caminho_completo)) {
+      $query .= " Imagem='$imagem_caminho_completo',";
+    }
+
+    if (!empty($_POST['Desc_Imagem'])) {
+      $Desc_Imagem = mysqli_real_escape_string($conn, $_POST['Desc_Imagem']);
+      $query .= " Desc_Imagem='$Desc_Imagem',";
+    }
+
+    if (!empty($DataInicial)) {
+      $query .= " DataInicial='$DataInicial',";
+    }
+
+    if (!empty($DataFinal)) {
+      $query .= " DataFinal='$DataFinal',";
+    }
+
+    if (!empty($audio_caminho_completo)) {
+      $query .= " Audio_expo='$audio_caminho_completo',";
+    }
+
+    $query .= " id_Anfitriao='$id_Anfitriao' WHERE idExposicoes=$idExposicoes";
+
     $resultado = mysqli_query($conn, $query);
 
     if ($resultado) {
@@ -512,7 +548,7 @@ function listar_obras_exposicao($conn, $idExposicoes, $tabelaExposicoesObras)
 {
   $obras = array();
 
-  $sql = "SELECT obras.id_Obras, obras.nome_obra, obras.autor, obras.imagem FROM obras
+  $sql = "SELECT * FROM obras
           INNER JOIN $tabelaExposicoesObras ON obras.id_Obras = $tabelaExposicoesObras.Obras_idObras
           WHERE $tabelaExposicoesObras.Exposicoes_idExposicoes = $idExposicoes";
 
@@ -526,7 +562,6 @@ function listar_obras_exposicao($conn, $idExposicoes, $tabelaExposicoesObras)
 
   return $obras;
 }
-
 function obra_evento($conn, $idExposicoes)
 {
   if (isset($_POST['salvar'])) {
@@ -546,12 +581,27 @@ function obra_evento($conn, $idExposicoes)
   }
 }
 
-function todas_obras($conn, $id_Obras, $tabela)
+function consultar_obras($conn, $id, $tabela, $tipo)
 {
-  $query = "SELECT * FROM $tabela WHERE id_Obras = " . (int) $id_Obras;
-  $execute = mysqli_query($conn, $query);
-  $exposicao = mysqli_fetch_assoc($execute);
-  return $exposicao;
+    $query = "SELECT * FROM $tabela WHERE ";
+
+    if ($tipo === 'id_Obras') {
+        $query .= "id_Obras = " . (int) $id;
+        $result = mysqli_query($conn, $query);
+        return mysqli_fetch_assoc($result);
+    } elseif ($tipo === 'Artista_id') {
+        $query .= "Artista_id = " . (int) $id;
+        $result = mysqli_query($conn, $query);
+        $obras = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $obras[] = $row;
+        }
+
+        return $obras;
+    } else {
+        return null;
+    }
 }
 
 function todos($conn, $tabela)

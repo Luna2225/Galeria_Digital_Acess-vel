@@ -14,7 +14,7 @@ require_once "../functions.php";
 
     <script src="https://kit.fontawesome.com/54ae61cac0.js" crossorigin="anonymous"></script>
 
-    <title>Home</title>
+    <title>Home | Artista</title>
 
     <link rel="icon" type="image/png" href="../assets/logo/logoarceble copy.png" />
 
@@ -35,13 +35,12 @@ require_once "../functions.php";
             <a class="nav-link active" aria-current="page" href="#">Obras Cadastradas</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="Cadastrar_Obra.php">Cadastrar obra</a>
+            <a class="nav-link" href="cadastrar_obra.php">Cadastrar obra</a>
         </li>
     </ul>
 
 
     <center>
-
         <!-- === NOVOS EVENTOS === -->
         <div class="container-fluid">
             <?php if ($seguranca) { ?>
@@ -53,10 +52,11 @@ require_once "../functions.php";
                 $obras = listar_obra($conn, $id_Usuarios, $tabela);
 
                 if (isset($_GET['id'])) { ?>
-                    <h2>Tem certeza que deseja deletar a obra <?php echo $_GET['nome_obra']; ?></h2>
+                    <h2>Tem certeza que deseja deletar a obra: <?php echo $_GET['nome_obra']; ?></h2>
                     <form action="" method="post">
                         <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
-                        <input type="submit" name="deletar" value="Deletar">
+                        <input type="submit" name="deletar" class="btn btn-primary px-4 py-2" value="Deletar">
+                        <a href="javascript:history.back()" class="btn btn-primary px-4 py-2">Cancelar</a>
                     </form>
                 <?php } ?>
 
@@ -76,7 +76,7 @@ require_once "../functions.php";
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h1 class="card-title"><?php echo $obra['nome_obra']; ?></h1>
-                                    <p class="card-text"><?php echo $obra['LongaDesc']; ?></p>
+                                    <p class="card-text"><?php echo $obra['Descricao']; ?></p>
                                     <div class="gap-2 col-6 mx-auto">
                                         <a href="Editar_Obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>&nome_obra=<?php echo $obra['nome_obra']; ?>&autor=<?php echo $obra['autor']; ?>&Descricao=<?php echo $obra['Descricao']; ?>&LongaDesc=<?php echo $obra['LongaDesc']; ?>&imagem=<?php echo $obra['imagem']; ?>&audiodescricao=<?php echo $obra['audiodescricao']; ?>&dataCriacao=<?php echo $obra['dataCriacao']; ?>&Artista_id=<?php echo $obra['Artista_id']; ?>" class="btn btn-primary px-4 py-2" id="btn">Editar</a>
                                         <a href="inicial_artista.php?id=<?php echo $obra['id_Obras']; ?>&nome_obra=<?php echo $obra['nome_obra']; ?>" class="btn btn-primary px-4 py-2" id="btn">Excluir</a>
