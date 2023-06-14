@@ -48,28 +48,38 @@ $exposicoes = todos($conn, $tabela);
   <center>
     <!-- === NOVOS EVENTOS === -->
     <div class="container-fluid">
-      <?php if ($exposicoes) { ?>
-        <div class="card tela_eventos">
-          <?php foreach ($exposicoes as $exposicoe) { ?>
-            <div class="evento mb-4">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="Imagem do evento <?php echo $exposicoe['Desc_Imagem']; ?>">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h1 class="card-title"><?php echo $exposicoe['Nome_expo']; ?></h1>
-                    <p class="card-text"><?php echo $exposicoe['Desc_expo']; ?></p>
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                      <a href="descricao_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>&origem=eventos" class="btn btn-primary px-4 py-2" id="btn">Mais</a>
+      <?php if (empty($exposicoes)) : ?>
+        <h1>Sem exposições cadastradas</h1>
+      <?php else : ?>
+        <?php if ($exposicoes) { ?>
+          <div class="card tela_eventos">
+            <?php foreach ($exposicoes as $exposicoe) { ?>
+              <div class="evento mb-4">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="Imagem do evento <?php echo $exposicoe['Desc_Imagem']; ?>">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h1 class="card-title"><?php echo $exposicoe['Nome_expo']; ?></h1>
+                      <p class="card-text"><?php echo $exposicoe['Desc_expo']; ?></p>
+                      <p class="card-text">
+                        <strong><i class="bi bi-calendar3"></i> Início:</strong> <?php echo date('d/m/Y', strtotime($exposicoe['DataInicial'])); ?>
+                      </p>
+                      <p class="card-text">
+                        <strong><i class="bi bi-calendar3"></i> Fim:</strong> <?php echo date('d/m/Y', strtotime($exposicoe['DataFinal'])); ?>
+                      </p>
+                      <div class="d-grid gap-2 col-6 mx-auto">
+                        <a href="descricao_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>&origem=eventos" class="btn btn-primary px-4 py-2" id="btn">Mais</a>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          <?php } ?>
-        </div>
-      <?php } ?>
+            <?php } ?>
+          </div>
+        <?php } ?>
+      <?php endif; ?>
     </div>
 
     <!-- === FOOTER === -->

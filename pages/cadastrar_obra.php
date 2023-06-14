@@ -1,11 +1,11 @@
 <?php
 session_start();
-$seguranca = isset($_SESSION['ativa']) ? TRUE : header("location: ../login.php");
+$seguranca = isset($_SESSION['id_Usuarios']) ? TRUE : header("location: ../login.php");
 require_once "../functions.php";
 
 
 if (isset($_POST['cadastrarObra'])) {
-    cadastrarObra($conn, $Artista_id);
+    cadastrarObra($conn);
 }
 ?>
 <!DOCTYPE html>

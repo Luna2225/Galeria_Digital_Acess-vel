@@ -2,6 +2,18 @@
 session_start();
 $seguranca = isset($_SESSION['id_Usuarios']) ? true : header("location: ../login.php");
 require_once "../functions.php";
+
+if ($seguranca) {
+  if (isset($_GET['id_Obras'])) {
+    $id_Obras = $_GET['id_Obras'];
+    $tabela = "obras";
+    $obra = listar_obra($conn, $tabela, $id_Obras);
+
+    if (isset($_POST['atualizarObra'])) {
+      AtualizarObra($conn);
+    }
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,15 +57,7 @@ require_once "../functions.php";
     <div class="">
       <?php if ($seguranca) { ?>
 
-        <?php if (isset($_GET['id_Obras'])) {
-          $id_Obras = $_GET['id_Obras'];
-          $tabela = "obras";
-          $obra = listar_obra($conn, $tabela, $id_Obras);
-
-          if (isset($_POST['atualizarObra'])) {
-            AtualizarObra($conn);
-          }
-        ?>
+        <?php if (isset($_GET['id_Obras'])) { ?>
           <?php if (isset($_GET['atualizacaoSucesso'])) { ?>
             <h2>Obra atualizada com sucesso!</h2>
           <?php } ?>
@@ -87,7 +91,7 @@ require_once "../functions.php";
           <b><label>Descreva a imagem da obra</label></b><br>
           <textarea name="LongaDesc" id="" cols="0" rows="10" class="contact__input" placeholder="Descreva aqui"><?php echo $_GET['LongaDesc']; ?></textarea>
 
-          <input type="submit" value="Cadastrar" name="atualizarObra" class="button1 button">
+          <input type="submit" value="Atualizar" name="atualizarObra" class="button1 button">
         </form>
       <?php } ?>
     </div>

@@ -112,8 +112,10 @@ if (isset($_GET['origem']) && $_GET['origem'] === "eventos") {
                 <hr>
 
                 <h2>Obras Cadastradas Neste Evento</h2>
-                <?php if (!empty($obrasExposicao)) { ?>
-                    <div class="container-fluid im">
+                <div class="container-fluid im">
+                    <?php if (empty($obrasExposicao)) : ?>
+                        <h1>Sem obras cadastradas neste evento</h1>
+                    <?php else : ?>
                         <div class="row row-cols-1 row-cols-md-3 g-4">
                             <?php foreach ($obrasExposicao as $obraExposicao) { ?>
                                 <div class="col">
@@ -130,8 +132,9 @@ if (isset($_GET['origem']) && $_GET['origem'] === "eventos") {
                                 </div>
                             <?php } ?>
                         </div>
-                    </div>
-                <?php } ?>
+                    <?php endif; ?>
+                </div>
+
             <?php } ?>
         </div>
     </center>

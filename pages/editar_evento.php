@@ -2,6 +2,21 @@
 session_start();
 $seguranca = isset($_SESSION['id_Usuarios']) ? TRUE : header("location: ../login.php");
 require_once "../functions.php";
+
+
+if ($seguranca) {
+  if (isset($_GET['idExposicoes'])) {
+    $idExposicoes = $_GET['idExposicoes'];
+    $tabela = "exposicoes";
+    $exposicoes = listar_evento($conn, $idExposicoes, $tabela);
+    atualizarExposicao($conn);
+
+    if (isset($_POST['atualizarExposicao'])) {
+      atualizarExposicao($conn);
+    }
+  }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -45,15 +60,15 @@ require_once "../functions.php";
     <div class="">
       <?php if ($seguranca) { ?>
 
-        <?php if (isset($_GET['idExposicoes'])) {
-          $idExposicoes = $_GET['idExposicoes'];
-          $tabela = "exposicoes";
-          $exposicoes = listar_evento($conn, $idExposicoes, $tabela);
-          atualizarExposicao($conn);
-        ?>
-          <h2>Editando o evento: <?php echo $_GET['Nome_expo']; ?></h2>
+        <?php if (isset($_GET['idExposicoes'])) { ?>
+          <?php if (isset($_GET['atualizacaoSucesso'])) { ?>
+            <h2>Exposição atualizada com sucesso!</h2>
+          <?php } ?>
+
+          <h2>Editando a exposição: <?php echo $_GET['Nome_expo']; ?></h2>
 
         <?php } ?>
+
         <form action="" class="contact__form" method="post" enctype="multipart/form-data">
           <h2 class="section-title">Editar Eventos</h2>
           <input value="<?php echo $_GET['id_Anfitriao']; ?>" type="hidden" name="id_Anfitriao">

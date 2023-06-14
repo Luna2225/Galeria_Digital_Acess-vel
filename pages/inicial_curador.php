@@ -1,6 +1,15 @@
 <?php session_start();
 $seguranca = isset($_SESSION['id_Usuarios']) ? TRUE : header("location: login.php");
 require_once "../functions.php";
+
+$tabela = "exposicoes";
+$id_Usuarios = $_SESSION['id_Usuarios'];
+$exposicoes = listar_evento($conn, $id_Usuarios, $tabela);
+
+if (isset($_POST['deletar_exposicoes'])) {
+    deletar_exposicoes($conn, $tabela, $_POST['id']);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -48,12 +57,7 @@ require_once "../functions.php";
             <?php if ($seguranca) { ?>
                 <h3>Bem Vindo, <?php echo $_SESSION['nome']; ?></h3>
 
-                <?php
-                $tabela = "exposicoes";
-                $id_Usuarios = $_SESSION['id_Usuarios'];
-                $exposicoes = listar_evento($conn, $id_Usuarios, $tabela);
-
-                if (isset($_GET['id'])) { ?>
+                <?php if (isset($_GET['id'])) { ?>
                     <h2>Tem certeza que deseja deletar o evento <?php echo $_GET['Nome_expo']; ?></h2>
                     <form action="" method="post">
                         <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
@@ -62,32 +66,35 @@ require_once "../functions.php";
                     </form>
                 <?php } ?>
 
-                <?php
-                if (isset($_POST['deletar_exposicoes'])) {
-                    deletar_exposicoes($conn, "exposicoes", $_POST['id']);
-                    header("location: inicial_curador.php");
-                }
-                ?>
-
                 <div class="card mb-3 tela_eventos">
-                    <?php foreach ($exposicoes as $exposicoe) : ?>
-                        <div class="row g-0 mb-4">
-                            <div class="col-md-4">
-                                <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="<?php echo $exposicoe['Desc_expo']; ?>">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h1 class="card-title"><?php echo $exposicoe['Nome_expo']; ?></h1>
-                                    <p class="card-text"><?php echo $exposicoe['Desc_expo']; ?></p>
-                                    <div class="gap-2 col-6 mx-auto">
-                                        <a href="editar_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>&Nome_expo=<?php echo $exposicoe['Nome_expo']; ?>&Desc_expo=<?php echo $exposicoe['Desc_expo']; ?>&Imagem=<?php echo $exposicoe['Imagem']; ?>&Desc_Imagem=<?php echo $exposicoe['Desc_Imagem']; ?>&DataInicial=<?php echo $exposicoe['DataInicial']; ?>&DataFinal=<?php echo $exposicoe['DataFinal']; ?>&Audio_expo=<?php echo $exposicoe['Audio_expo']; ?>&id_Anfitriao=<?php echo $exposicoe['id_Anfitriao']; ?>" class="btn btn-primary px-4 py-2" id="btn">Editar</a>
-                                        <a href="inicial_curador.php?id=<?php echo $exposicoe['idExposicoes']; ?>&Nome_expo=<?php echo $exposicoe['Nome_expo']; ?>" class="btn btn-primary px-4 py-2" id="btn">Excluir</a>
-                                        <a href="obra_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>" class="btn btn-primary px-4 py-2" id="btn">Selecionar</a>
+                    <?php if (empty($exposicoes)) : ?>
+                        <h1>Sem exposições cadastradas</h1>
+                    <?php else : ?>
+                        <?php foreach ($exposicoes as $exposicoe) : ?>
+                            <div class="row g-0 mb-4">
+                                <div class="col-md-4">
+                                    <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="<?php echo $exposicoe['Desc_expo']; ?>">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h1 class="card-title"><?php echo $exposicoe['Nome_expo']; ?></h1>
+                                        <p class="card-text"><?php echo $exposicoe['Desc_expo']; ?></p>
+                                        <p class="card-text">
+                                            <strong><i class="bi bi-calendar3"></i> Início:</strong> <?php echo date('d/m/Y', strtotime($exposicoe['DataInicial'])); ?>
+                                        </p>
+                                        <p class="card-text">
+                                            <strong><i class="bi bi-calendar3"></i> Fim:</strong> <?php echo date('d/m/Y', strtotime($exposicoe['DataFinal'])); ?>
+                                        </p>
+                                        <div class="gap-2 col-6 mx-auto">
+                                            <a href="editar_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>&Nome_expo=<?php echo $exposicoe['Nome_expo']; ?>&Desc_expo=<?php echo $exposicoe['Desc_expo']; ?>&Imagem=<?php echo $exposicoe['Imagem']; ?>&Desc_Imagem=<?php echo $exposicoe['Desc_Imagem']; ?>&DataInicial=<?php echo $exposicoe['DataInicial']; ?>&DataFinal=<?php echo $exposicoe['DataFinal']; ?>&Audio_expo=<?php echo $exposicoe['Audio_expo']; ?>&id_Anfitriao=<?php echo $exposicoe['id_Anfitriao']; ?>" class="btn btn-primary px-4 py-2" id="btn">Editar</a>
+                                            <a href="inicial_curador.php?id=<?php echo $exposicoe['idExposicoes']; ?>&Nome_expo=<?php echo $exposicoe['Nome_expo']; ?>" class="btn btn-primary px-4 py-2" id="btn">Excluir</a>
+                                            <a href="obra_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>" class="btn btn-primary px-4 py-2" id="btn">Selecionar</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             <?php } ?>
 

@@ -1,6 +1,13 @@
 <?php session_start();
 $seguranca = isset($_SESSION['id_Usuarios']) ? TRUE : header("location: login.php");
 require_once "../functions.php";
+$tabela = "obras";
+$id_Usuarios = $_SESSION['id_Usuarios'];
+$obras = listar_obra($conn, $id_Usuarios, $tabela);
+
+if (isset($_POST['deletar'])) {
+    deletar($conn, "obras", $_POST['id']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -47,10 +54,6 @@ require_once "../functions.php";
                 <h3>Bem Vindo, <?php echo $_SESSION['nome']; ?></h3>
 
                 <?php
-                $tabela = "obras";
-                $id_Usuarios = $_SESSION['id_Usuarios'];
-                $obras = listar_obra($conn, $id_Usuarios, $tabela);
-
                 if (isset($_GET['id'])) { ?>
                     <h2>Tem certeza que deseja deletar a obra: <?php echo $_GET['nome_obra']; ?></h2>
                     <form action="" method="post">
@@ -60,34 +63,30 @@ require_once "../functions.php";
                     </form>
                 <?php } ?>
 
-                <?php
-                if (isset($_POST['deletar'])) {
-                    deletar($conn, "obras", $_POST['id']);
-                    header("location: inicial_artista.php");
-                }
-                ?>
-
                 <div class="card mb-3 tela_eventos">
-                    <?php foreach ($obras as $obra) : ?>
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="<?php echo $obra['imagem']; ?>" class="card-img" alt="<?php echo $obra['LongaDesc']; ?>">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h1 class="card-title"><?php echo $obra['nome_obra']; ?></h1>
-                                    <p class="card-text"><?php echo $obra['Descricao']; ?></p>
-                                    <div class="gap-2 col-6 mx-auto">
-                                        <a href="Editar_Obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>&nome_obra=<?php echo $obra['nome_obra']; ?>&autor=<?php echo $obra['autor']; ?>&Descricao=<?php echo $obra['Descricao']; ?>&LongaDesc=<?php echo $obra['LongaDesc']; ?>&imagem=<?php echo $obra['imagem']; ?>&audiodescricao=<?php echo $obra['audiodescricao']; ?>&dataCriacao=<?php echo $obra['dataCriacao']; ?>&Artista_id=<?php echo $obra['Artista_id']; ?>" class="btn btn-primary px-4 py-2" id="btn">Editar</a>
-                                        <a href="inicial_artista.php?id=<?php echo $obra['id_Obras']; ?>&nome_obra=<?php echo $obra['nome_obra']; ?>" class="btn btn-primary px-4 py-2" id="btn">Excluir</a>
+                    <?php if (empty($obras)) : ?>
+                        <h1>Sem obras cadastradas</h1>
+                    <?php else : ?>
+                        <?php foreach ($obras as $obra) : ?>
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="<?php echo $obra['imagem']; ?>" class="card-img" alt="<?php echo $obra['LongaDesc']; ?>">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h1 class="card-title"><?php echo $obra['nome_obra']; ?></h1>
+                                        <p class="card-text"><?php echo $obra['Descricao']; ?></p>
+                                        <div class="gap-2 col-6 mx-auto">
+                                            <a href="Editar_Obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>&nome_obra=<?php echo $obra['nome_obra']; ?>&autor=<?php echo $obra['autor']; ?>&Descricao=<?php echo $obra['Descricao']; ?>&LongaDesc=<?php echo $obra['LongaDesc']; ?>&imagem=<?php echo $obra['imagem']; ?>&audiodescricao=<?php echo $obra['audiodescricao']; ?>&dataCriacao=<?php echo $obra['dataCriacao']; ?>&Artista_id=<?php echo $obra['Artista_id']; ?>" class="btn btn-primary px-4 py-2" id="btn">Editar</a>
+                                            <a href="inicial_artista.php?id=<?php echo $obra['id_Obras']; ?>&nome_obra=<?php echo $obra['nome_obra']; ?>" class="btn btn-primary px-4 py-2" id="btn">Excluir</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             <?php } ?>
-
         </div>
     </center>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

@@ -1,5 +1,9 @@
 <?php
 require_once "../functions.php";
+
+$tabela = "usuarios";
+$order = "nome";
+inserirUsuario($conn);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -43,11 +47,6 @@ require_once "../functions.php";
 
   <center>
     <div class="container-fluid">
-      <?php
-      $tabela = "usuarios";
-      $order = "nome";
-      inserirUsuario($conn);
-      ?>
       <form action="" class="contact__form" method="post">
         <h2 class="section">Cadastro</h2>
         <input type="text" placeholder="Nome Completo" autocomplete="name" class="contact__input" name="nome" aria-label="Digite o seu nome completo">

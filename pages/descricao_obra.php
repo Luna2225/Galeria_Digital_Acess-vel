@@ -137,7 +137,7 @@ $autor = consultar_obras($conn, $Artista_id, $tabela, $tipo);
                     <h5 class="card-title"><?php echo $obra['nome_obra']; ?></h5>
                     <p class="card-text"><?php echo $obra['Descricao']; ?></p>
                     <div class="d-grid gap-2 col-6 mx-auto">
-                      <a href="#" class="btn btn-primary">Ver</a>
+                      <a href="descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>&origem=galeria" class="btn btn-primary">Ver</a>
                     </div>
                   </div>
                 </div>

@@ -197,7 +197,7 @@ function deletar_exposicoes($conn, $tabela, $idExposicoes)
     mysqli_stmt_execute($stmtExposicoes);
 
     if (mysqli_stmt_affected_rows($stmtExposicoes) > 0) {
-      echo "Dado deletado com sucesso!";
+      header("Location: /pages/inicial_curador.php");
     } else {
       echo "Erro ao deletar dado!";
     }
@@ -206,9 +206,15 @@ function deletar_exposicoes($conn, $tabela, $idExposicoes)
   }
 }
 
-function cadastrarObra($conn, $Artista_id)
+function cadastrarObra($conn)
 {
+  if (!isset($_SESSION['id_Usuarios'])) {
+    header("Location: login.php");
+    exit;
+  }
+
   if (isset($_POST['cadastrarObra'])) {
+    $Artista_id = $_SESSION['id_Usuarios'];
     $id_Obras = rand(1, 999999);
     $autor = mysqli_real_escape_string($conn, $_POST['autor']);
     $Descricao = mysqli_real_escape_string($conn, $_POST['Descricao']);
@@ -252,7 +258,6 @@ function cadastrarObra($conn, $Artista_id)
     $imagem_caminho_completo = $imagem_caminho . $imagem_nome;
     $audiodescricao_caminho_completo = $audiodescricao_caminho . $audiodescricao_nome;
 
-    $Artista_id = $_SESSION['id_Usuarios'];
     // Obter a data atual
     $dataCriacao = date('Y-m-d');
 
@@ -261,8 +266,7 @@ function cadastrarObra($conn, $Artista_id)
     $resultado = mysqli_query($conn, $query);
 
     if ($resultado) {
-      echo "Obra cadastrada com sucesso!";
-      header("location: /pages/inicial_artista.php");
+      header("Location: /pages/inicial_artista.php");
     } else {
       echo "Erro ao cadastrar obra: " . mysqli_error($conn);
     }
@@ -372,9 +376,10 @@ function AtualizarObra($conn)
   }
 }
 
-function cadastrarExposicao($conn, $id_Anfitriao)
+function cadastrarExposicao($conn)
 {
   if (isset($_POST['cadastrarExposicao'])) {
+    $id_Anfitriao = $_SESSION['id_Usuarios'];
     $idExposicoes = rand(1, 999999);
     $Nome_expo = mysqli_real_escape_string($conn, $_POST['Nome_expo']);
     $Desc_expo = mysqli_real_escape_string($conn, $_POST['Desc_expo']);
@@ -418,8 +423,6 @@ function cadastrarExposicao($conn, $id_Anfitriao)
 
     $imagem_caminho_completo = $imagem_caminho . $imagem_nome;
     $audio_caminho_completo = $audio_caminho . $audio_nome;
-
-    $id_Anfitriao = $_SESSION['id_Usuarios'];
 
     // Executar a inserção dos dados no banco de dados
     $query = "INSERT INTO exposicoes (idExposicoes, Nome_expo, Desc_expo, Imagem, Desc_Imagem, DataInicial, DataFinal, Audio_expo, id_Anfitriao) VALUES ('$idExposicoes', '$Nome_expo', '$Desc_expo', '$imagem_caminho_completo', '$Desc_Imagem', '$DataInicial', '$DataFinal', '$audio_caminho_completo', '$id_Anfitriao')";
@@ -583,25 +586,25 @@ function obra_evento($conn, $idExposicoes)
 
 function consultar_obras($conn, $id, $tabela, $tipo)
 {
-    $query = "SELECT * FROM $tabela WHERE ";
+  $query = "SELECT * FROM $tabela WHERE ";
 
-    if ($tipo === 'id_Obras') {
-        $query .= "id_Obras = " . (int) $id;
-        $result = mysqli_query($conn, $query);
-        return mysqli_fetch_assoc($result);
-    } elseif ($tipo === 'Artista_id') {
-        $query .= "Artista_id = " . (int) $id;
-        $result = mysqli_query($conn, $query);
-        $obras = array();
+  if ($tipo === 'id_Obras') {
+    $query .= "id_Obras = " . (int) $id;
+    $result = mysqli_query($conn, $query);
+    return mysqli_fetch_assoc($result);
+  } elseif ($tipo === 'Artista_id') {
+    $query .= "Artista_id = " . (int) $id;
+    $result = mysqli_query($conn, $query);
+    $obras = array();
 
-        while ($row = mysqli_fetch_assoc($result)) {
-            $obras[] = $row;
-        }
-
-        return $obras;
-    } else {
-        return null;
+    while ($row = mysqli_fetch_assoc($result)) {
+      $obras[] = $row;
     }
+
+    return $obras;
+  } else {
+    return null;
+  }
 }
 
 function todos($conn, $tabela)

@@ -72,59 +72,73 @@ $obras = obra_index($conn, $tabela1, $limit = 3);
     <div class="container-fluid">
       <h2 class="section-title">Novas obras</h2>
 
-      <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <?php for ($i = 0; $i < count($obras); $i++) : ?>
-            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="<?php echo $i; ?>" <?php if ($i === 0) echo 'class="active" aria-current="true"'; ?> aria-label="Slide <?php echo ($i + 1); ?>"></button>
-          <?php endfor; ?>
-        </div>
+      <?php if (empty($obras)) : ?>
+        <h1>Sem obras cadastradas</h1>
+      <?php else : ?>
+        <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <?php for ($i = 0; $i < count($obras); $i++) : ?>
+              <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="<?php echo $i; ?>" <?php if ($i === 0) echo 'class="active" aria-current="true"'; ?> aria-label="Slide <?php echo ($i + 1); ?>"></button>
+            <?php endfor; ?>
+          </div>
 
-        <div class="carousel-inner">
-          <?php foreach ($obras as $index => $obra) : ?>
-            <div class="carousel-item <?php if ($index === 0) echo 'active'; ?> c-item">
-              <img src="<?php echo $obra['imagem']; ?>" class="d-block w-100 c-img" alt="Slide <?php echo ($index + 1); ?>">
-              <div class="carousel-caption top-0 mt-4">
-                <p class="mt-5 fs-3 text-uppercase"><?php echo $obra['autor']; ?></p>
-                <h1 class="display-1 fw-bolder text-capitalize"><?php echo $obra['nome_obra']; ?></h1>
-                <a href="/pages/descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>" class="btn btn-primary px-4 py-2 fs-5 mt-5" id="button" aria-label="Ver detalhes da obra <?php echo $obra['nome_obra']; ?>">Ver</a>
+          <div class="carousel-inner">
+            <?php foreach ($obras as $index => $obra) : ?>
+              <div class="carousel-item <?php if ($index === 0) echo 'active'; ?> c-item">
+                <img src="<?php echo $obra['imagem']; ?>" class="d-block w-100 c-img" alt="Slide <?php echo ($index + 1); ?>">
+                <div class="carousel-caption top-0 mt-4">
+                  <p class="mt-5 fs-3 text-uppercase"><?php echo $obra['autor']; ?></p>
+                  <h1 class="display-1 fw-bolder text-capitalize"><?php echo $obra['nome_obra']; ?></h1>
+                  <a href="/pages/descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>" class="btn btn-primary px-4 py-2 fs-5 mt-5" id="button" aria-label="Ver detalhes da obra <?php echo $obra['nome_obra']; ?>">Ver</a>
+                </div>
               </div>
-            </div>
-          <?php endforeach; ?>
-        </div>
+            <?php endforeach; ?>
+          </div>
 
-        <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev" aria-label="Slide anterior">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next" aria-label="Próximo slide">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev" aria-label="Slide anterior">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next" aria-label="Próximo slide">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      <?php endif; ?>
     </div>
 
     <!-- === NOVOS EVENTOS === -->
     <div class="container-fluid">
       <h2 class="section-title">Novo Evento</h2>
 
-      <div class="card mb-3 eventos" id="card">
-        <?php foreach ($exposicoes as $exposicoe) : ?>
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="<?php echo $exposicoe['Desc_Imagem']; ?>">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h1 class="card-title"><?php echo $exposicoe['Nome_expo']; ?></h1>
-                <p class="card-text"><?php echo $exposicoe['Desc_expo']; ?></p>
-                <div class="d-grid gap-2 col-6 mx-auto">
-                  <a href="/pages/descricao_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>" class="btn btn-primary px-4 py-2">Ver</a>
+      <?php if (empty($exposicoes)) : ?>
+        <h1>Sem exposições cadastradas</h1>
+      <?php else : ?>
+        <div class="card mb-3 eventos" id="card">
+          <?php foreach ($exposicoes as $exposicoe) : ?>
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img" alt="<?php echo $exposicoe['Desc_Imagem']; ?>">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h1 class="card-title"><?php echo $exposicoe['Nome_expo']; ?></h1>
+                  <p class="card-text"><?php echo $exposicoe['Desc_expo']; ?></p>
+                  <p class="card-text">
+                    <strong><i class="bi bi-calendar3"></i> Início:</strong> <?php echo date('d/m/Y', strtotime($exposicoe['DataInicial'])); ?>
+                  </p>
+                  <p class="card-text">
+                    <strong><i class="bi bi-calendar3"></i> Fim:</strong> <?php echo date('d/m/Y', strtotime($exposicoe['DataFinal'])); ?>
+                  </p>
+                  <div class="d-grid gap-2 col-6 mx-auto">
+                    <a href="/pages/descricao_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>" class="btn btn-primary px-4 py-2">Ver</a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        <?php endforeach; ?>
-      </div>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
     </div>
 
     <!-- === FOOTER === -->

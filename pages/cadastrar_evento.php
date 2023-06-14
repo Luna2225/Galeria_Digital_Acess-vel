@@ -1,11 +1,11 @@
 <?php
 session_start();
-$seguranca = isset($_SESSION['ativa']) ? TRUE : header("location: ../login.php");
+$seguranca = isset($_SESSION['id_Usuarios']) ? TRUE : header("location: ../login.php");
 require_once "../functions.php";
 
 
 if (isset($_POST['cadastrarExposicao'])) {
-  cadastrarExposicao($conn, $id_Anfitriao);
+  cadastrarExposicao($conn);
 }
 ?>
 <!DOCTYPE html>
@@ -49,7 +49,7 @@ if (isset($_POST['cadastrarExposicao'])) {
     <div class="">
       <form action="" class="contact__form" method="post" enctype="multipart/form-data">
         <h2 class="section-title">Cadastrar Eventos</h2>
-        
+
         <input type="text" placeholder="Nome do Evento" autocomplete="name" class="contact__input" name="Nome_expo">
 
         <b><label class="input-group">Descrição do evento</label></b>

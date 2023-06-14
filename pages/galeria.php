@@ -52,22 +52,26 @@ $obras = todos($conn, $tabela);
     <div class="container-fluid">
 
       <h2 class="section-title">A arceble apresenta exposições para todos</h2>
-      <?php if ($obras) { ?>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-          <?php foreach ($obras as $obra) { ?>
-            <div class="col">
-              <div class="card h-100" id="card">
-                <a href="descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>&origem=galeria"><img src="<?php echo $obra['imagem']; ?>" class="img-fluid " alt="<?php echo $obra['LongaDesc']; ?>"></a>
-                <div class="card-body">
-                  <h2 class="card-title"><?php echo $obra['nome_obra']; ?></h2>
-                  <p><?php echo $obra['autor']; ?></p>
-                  <a href="descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>&origem=galeria" class="btn btn-primary px-4 py-2 fs-5 mt-5" id="button">Mais</a>
+      <?php if (empty($obras)) : ?>
+        <h1>Sem obras cadastradas</h1>
+      <?php else : ?>
+        <?php if ($obras) { ?>
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <?php foreach ($obras as $obra) { ?>
+              <div class="col">
+                <div class="card h-100" id="card">
+                  <a href="descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>&origem=galeria"><img src="<?php echo $obra['imagem']; ?>" class="img-fluid " alt="<?php echo $obra['LongaDesc']; ?>"></a>
+                  <div class="card-body">
+                    <h2 class="card-title"><?php echo $obra['nome_obra']; ?></h2>
+                    <p><?php echo $obra['autor']; ?></p>
+                    <a href="descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>&origem=galeria" class="btn btn-primary px-4 py-2 fs-5 mt-5" id="button">Mais</a>
+                  </div>
                 </div>
               </div>
-            </div>
-          <?php } ?>
-        </div>
-      <?php } ?>
+            <?php } ?>
+          </div>
+        <?php } ?>
+      <?php endif; ?>
     </div>
     <!-- === FOOTER === -->
     <footer class="footer">
