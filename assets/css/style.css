@@ -190,12 +190,10 @@ a {
   filter: brightness(0.6);
 }
 
-#button {
-  background-color: #9D7715;
-  border: 0;
-  width: 10rem;
+/* === Botões da index 'detalhar-btn' ===*/
+.detalhar-btn {
+  font-weight: bold;
 }
-
 
 /* === DESCRICAO DA OBRA === */
 
@@ -310,14 +308,15 @@ h1 {
   outline: none;
   font-size: var(--normal-font-size);
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .button {
   display: inline-block;
-  background-color: #9D7715;
+  background-color: #0d6efd;
   color: #fff;
   padding: .75rem 2.5rem;
-  font-weight: 600;
+  font-weight: bold;
   border-radius: .6rem;
 }
 
@@ -357,10 +356,6 @@ h1 {
 
 .tela_eventos img{
   height: 450px;
-}
-#btn{
-  background-color: #9D7715;
-  border: 0;
 }
 #btn:hover{
   background-color: #9D7715;
