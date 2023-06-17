@@ -1,11 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
 
 :root {
-  --body-font: 'Poppins', sans-serif;
+  --body-font: "Poppins", sans-serif;
   --normal-font-size: 1rem;
   --big-font-size: 3rem;
 }
-
 
 /* === MENU DA PAGINA === */
 
@@ -16,31 +15,29 @@
 body {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
-  background-color: #E2E5E5;
+  background-color: #e2e5e5;
 }
 
 #logo {
-  color: #9D7715;
-  font-family: 'Marcellus SC';
+  color: #9d7715;
+  font-family: "Marcellus SC";
   font-size: 33px;
   font-weight: 600;
   margin-left: 1rem;
   margin-right: 1rem;
-
 }
 
 #sair {
-  color: #9D7715;
+  color: #9d7715;
   font-family: var(--body-font);
   font-size: 20px;
   font-weight: 600;
   margin-left: 1rem;
   margin-right: 1rem;
-
 }
 
 .nav-tabs {
-  border: #9D7715 solid 1px;
+  border: #9d7715 solid 1px;
 }
 
 .nav-link:hover::after {
@@ -57,7 +54,7 @@ body {
   color: #000;
   margin-left: 1rem;
   margin-right: 1rem;
-  color: #AB9267;
+  color: #ab9267;
   font-weight: 600;
 }
 
@@ -72,8 +69,8 @@ body {
   font-size: 0.938rem;
   font-weight: 600;
   padding: 1rem;
-  border-radius: .5rem;
-  border: 1.5px solid #AB9267;
+  border-radius: 0.5rem;
+  border: 1.5px solid #ab9267;
   outline: none;
   margin-bottom: 2rem;
 }
@@ -88,22 +85,22 @@ body {
 
 .button {
   display: inline-block;
-  background-color: #2A0944;
+  background-color: #2a0944;
   color: #fff;
-  padding: .75rem 2.5rem;
+  padding: 0.75rem 2.5rem;
   font-weight: 600;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
 
 .button:hover {
-  box-shadow: 0 10px 36px rgba(0, 0, 0, .15);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.15);
 }
 
 .section {
   position: relative;
   font-size: 2.4rem;
   font-weight: 600;
-  color: #2A0944;
+  color: #2a0944;
   margin-top: 3rem;
   margin-bottom: 2rem;
 }
@@ -117,7 +114,7 @@ body {
   right: 0;
   margin: auto;
   top: 3.1rem;
-  background-color: #2A0944;
+  background-color: #2a0944;
 }
 
 /* === TITULO === */
@@ -127,7 +124,7 @@ body {
   position: relative;
   font-size: 2.4rem;
   font-weight: 600;
-  color: #2A0944;
+  color: #2a0944;
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
@@ -141,13 +138,13 @@ body {
   right: 0;
   margin: auto;
   top: 3.1rem;
-  background-color: #2A0944;
+  background-color: #2a0944;
 }
 
 /* === TELA EVENTOS === */
 
 .tela_eventos {
-  background-color: #E2E5E5;
+  background-color: #e2e5e5;
   border: 0;
   margin-top: 3rem;
 }
@@ -158,15 +155,15 @@ body {
 }
 
 #btn {
-  background-color: #9D7715;
+  background-color: #9d7715;
   border: 0;
   margin-left: 1rem;
   margin-top: 1rem;
 }
 
 #btn:hover {
-  background-color: #9D7715;
-  box-shadow: 0 10px 36px rgba(0, 0, 0, .15);
+  background-color: #9d7715;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.15);
 }
 
 .card-body {

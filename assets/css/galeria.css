@@ -1,11 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
 
 :root {
-  --body-font: 'Poppins', sans-serif;
+  --body-font: "Poppins", sans-serif;
   --normal-font-size: 1rem;
   --big-font-size: 3rem;
 }
-
 
 /* === MENU DA PAGINA === */
 
@@ -16,17 +15,16 @@
 body {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
-  background-color: #E2E5E5;
+  background-color: #e2e5e5;
 }
 
 #logo {
-  color: #9D7715;
-  font-family: 'Marcellus SC';
+  color: #9d7715;
+  font-family: "Marcellus SC";
   font-size: 33px;
   font-weight: 600;
   margin-left: 1rem;
   margin-right: 1rem;
-
 }
 
 .nav-link:hover::after {
@@ -36,7 +34,7 @@ body {
   height: 0.18rem;
   left: 0;
   top: 2rem;
-  background-color: #9D7715;
+  background-color: #9d7715;
 }
 
 .nav-link {
@@ -44,7 +42,7 @@ body {
   color: #000;
   margin-left: 1rem;
   margin-right: 1rem;
-  color: #AB9267;
+  color: #ab9267;
   font-weight: 600;
 }
 
@@ -55,14 +53,14 @@ body {
   height: 0.18rem;
   left: 0;
   top: 2rem;
-  background-color: #9D7715;
+  background-color: #9d7715;
 }
-.section-title{
-  color: #9D7715;
-  font-family: 'Marcellus SC';
+.section-title {
+  color: #9d7715;
+  font-family: "Marcellus SC";
   margin-top: 2rem;
 }
-.img_1{
+.img_1 {
   margin-top: 10rem;
 }
 /* === CARD DE OBRAS GALERIA === */
@@ -85,12 +83,12 @@ body {
 }
 
 #card h2 {
-  color: #AB9267;
+  color: #ab9267;
   font-weight: 600;
 }
 
 #card p {
-  color: #AB9267;
+  color: #ab9267;
 }
 
 a {
@@ -120,6 +118,6 @@ a {
   color: #000;
   margin: 0 0.6rem;
 }
-#button{
+#button {
   font-weight: bold;
-  }
+}

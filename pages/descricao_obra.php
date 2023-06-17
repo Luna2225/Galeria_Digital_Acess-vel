@@ -89,7 +89,6 @@ $autor = consultar_obras($conn, $Artista_id, $tabela, $tipo);
         <audio controls autoplay>
           <source src="<?php echo $obras['audiodescricao']; ?>" type="audio/mpeg">
         </audio>
-        <hr>
         <h1><?php echo $obras['nome_obra']; ?>
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
