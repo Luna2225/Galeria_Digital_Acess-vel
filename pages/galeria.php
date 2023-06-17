@@ -64,7 +64,7 @@ $obras = todos($conn, $tabela);
                   <div class="card-body">
                     <h2 class="card-title"><?php echo $obra['nome_obra']; ?></h2>
                     <p><?php echo $obra['autor']; ?></p>
-                    <a href="descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>&origem=galeria" class="btn btn-primary px-4 py-2 fs-5 mt-5" id="button">Mais</a>
+                    <a href="descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>&origem=galeria" class="btn btn-primary px-4 py-2 fs-5 mt-5" id="button">Detalhar</a>
                   </div>
                 </div>
               </div>

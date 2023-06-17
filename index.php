@@ -89,7 +89,7 @@ $obras = obra_index($conn, $tabela1, $limit = 3);
                 <div class="carousel-caption top-0 mt-4">
                   <p class="mt-5 fs-3 text-uppercase"><?php echo $obra['autor']; ?></p>
                   <h1 class="display-1 fw-bolder text-capitalize"><?php echo $obra['nome_obra']; ?></h1>
-                  <a href="/pages/descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>" class="btn btn-primary px-4 py-2 fs-5 mt-5" id="button" aria-label="Ver detalhes da obra <?php echo $obra['nome_obra']; ?>">Ver</a>
+                  <a href="/pages/descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>" class="btn btn-primary px-4 py-2 fs-5 mt-5 detalhar-btn" aria-label="Ver detalhes da obra <?php echo $obra['nome_obra']; ?>">Detalhar</a>
                 </div>
               </div>
             <?php endforeach; ?>
@@ -131,7 +131,7 @@ $obras = obra_index($conn, $tabela1, $limit = 3);
                     <strong><i class="bi bi-calendar3"></i> Fim:</strong> <?php echo date('d/m/Y', strtotime($exposicoe['DataFinal'])); ?>
                   </p>
                   <div class="d-grid gap-2 col-6 mx-auto">
-                    <a href="/pages/descricao_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>" class="btn btn-primary px-4 py-2">Ver</a>
+                    <a href="/pages/descricao_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>" class="btn btn-primary px-4 py-2 detalhar-btn">Detalhar</a>
                   </div>
                 </div>
               </div>

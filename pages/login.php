@@ -67,7 +67,7 @@ if (isset($_GET['erro']) && $_GET['erro'] == 1) {
         <input type="email" name="email" placeholder="Email" autocomplete="name" class="contact__input" required aria-label="Digite o seu email">
         <input type="password" name="senha" placeholder="senha" autocomplete="senha" class="contact__input" required required aria-label="Digite a sua senha">
 
-        <input class="contact__button button" type="submit" name="acessar" value="Acessar" aria-label="Acessar"><br><br>
+        <input class="contact__button button" type="submit" name="acessar" value="Entrar" aria-label="Entrar"><br><br>
 
         <a href="reset_senha.php">Esqueci minha senha</a><br><br>
       </form>

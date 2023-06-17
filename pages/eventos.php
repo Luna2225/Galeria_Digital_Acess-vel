@@ -70,7 +70,7 @@ $exposicoes = todos($conn, $tabela);
                         <strong><i class="bi bi-calendar3"></i> Fim:</strong> <?php echo date('d/m/Y', strtotime($exposicoe['DataFinal'])); ?>
                       </p>
                       <div class="d-grid gap-2 col-6 mx-auto">
-                        <a href="descricao_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>&origem=eventos" class="btn btn-primary px-4 py-2" id="btn">Mais</a>
+                        <a href="descricao_evento.php?idExposicoes=<?php echo $exposicoe['idExposicoes']; ?>&origem=eventos" class="btn btn-primary px-4 py-2 detalhar-btn">Detalhar</a>
                       </div>
                     </div>
                   </div>
