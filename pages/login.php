@@ -69,7 +69,7 @@ if (isset($_GET['erro']) && $_GET['erro'] == 1) {
 
         <input class="contact__button button" type="submit" name="acessar" value="Acessar" aria-label="Acessar"><br><br>
 
-        <a href="#">Esqueci minha senha</a><br><br>
+        <a href="reset_senha.php">Esqueci minha senha</a><br><br>
       </form>
     </div>
   </center>
