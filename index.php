@@ -89,7 +89,7 @@ $obras = obra_index($conn, $tabela1, $limit = 3);
             <?php foreach ($obras as $index => $obra): ?>
               <div class="carousel-item <?php if ($index === 0)
                 echo 'active'; ?> c-item">
-                <img src="<?php echo $obra['imagem']; ?>" class="d-block w-100 c-img"
+                <img src="<?php echo $obra['imagem']; ?>" class="img-fluid d-block w-100 c-img"
                   alt="Slide <?php echo ($index + 1); ?>">
                 <div class="carousel-caption top-0 mt-4">
                   <p class="mt-5 fs-3 text-uppercase">
@@ -131,7 +131,7 @@ $obras = obra_index($conn, $tabela1, $limit = 3);
           <?php foreach ($exposicoes as $exposicoe): ?>
             <div class="row g-0">
               <div class="col-md-4">
-                <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img"
+                <img src="<?php echo $exposicoe['Imagem']; ?>" class="card-img img-fluid"
                   alt="<?php echo $exposicoe['Desc_Imagem']; ?>">
               </div>
               <div class="col-md-8">
@@ -161,21 +161,9 @@ $obras = obra_index($conn, $tabela1, $limit = 3);
         </div>
       <?php endif; ?>
     </div>
-
-    <!-- === FOOTER === -->
-    <footer class="footer">
-      <p class="footer__title">ARCEBLE</p>
-      <div class="footer__social">
-        <a href="#" class="footer__icon"><i class='bx bxl-github'></i></a>
-        <a href="#" class="footer__icon"><i class='bx bxl-linkedin-square'></i></a>
-        <a href="#" class="footer__icon"><i class='bx bxl-whatsapp'></i></a>
-        <a href="#" class="footer__icon"><i class='bx bxl-facebook-circle'></i></a>
-        <a href="#" class="footer__icon"><i class='bx bxl-instagram'></i></a>
-      </div>
-      <p>&copy; 2023 ARCEBLE. Todos os direitos reservados.</p>
-    </footer>
-
   </center>
+  
+  <?php require_once "footer.php"; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"

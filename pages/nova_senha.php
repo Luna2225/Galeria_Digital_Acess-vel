@@ -56,17 +56,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nova_senha'])) {
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <link rel="icon" type="image/png" href="/assets/logo/logoarceble copy.png" />
+
     <title>Nova Senha</title>
 </head>
 
 <body>
-    <h2>Nova Senha</h2>
-    <form action="" method="POST">
-        <input type="hidden" name="token" value="<?php echo $_GET['token']; ?>">
-        <input type="password" name="nova_senha" placeholder="Digite a nova senha" required>
-        <input type="submit" value="Redefinir Senha">
-    </form>
+    <nav class="navbar navbar-expand-lg" id="menu">
+        <div class="container-fluid">
+            <a href="/index.php" class="navbar-brand disabled" id="logo" aria-label="Página inicial da ARCEBLE">ARCEBLE</a>
+        </div>
+    </nav>
+
+    <center>
+        <div class="container-fluid">
+            <form action="" class="contact__form" method="POST">
+                <h2 class="section">Nova Senha</h2>
+                <div class="mb-3">
+                    <input type="hidden" name="token" value="<?php echo $_GET['token']; ?>">
+                </div>
+                <div class="mb-3">
+                    <input type="password" name="nova_senha" placeholder="Digite a nova senha" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <input type="submit" value="Redefinir Senha" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </center>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

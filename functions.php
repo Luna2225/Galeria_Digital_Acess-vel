@@ -138,7 +138,8 @@ function inserirUsuario($conn)
         }
         $executar = mysqli_query($conn, $sql);
         if ($executar) {
-          header("location: /pages/login.php");
+          header("Location: /pages/login.php");
+          exit; // Certifique-se de adicionar o comando exit após o redirecionamento
         } else {
           echo "Erro ao inserir usuário!";
         }
@@ -171,7 +172,7 @@ function deletar($conn, $tabela, $id_Obras)
     mysqli_stmt_execute($stmtObras);
 
     if (mysqli_stmt_affected_rows($stmtObras) > 0) {
-      echo "Dado deletado com sucesso!";
+      header("Location: inicial_artista.php");
     } else {
       echo "Erro ao deletar dado!";
     }
@@ -429,7 +430,6 @@ function cadastrarExposicao($conn)
     $resultado = mysqli_query($conn, $query);
 
     if ($resultado) {
-      echo "Exposição cadastrada com sucesso!";
       header("location: /pages/inicial_curador.php");
     } else {
       echo "Erro ao cadastrar exposição: " . mysqli_error($conn);
@@ -531,8 +531,7 @@ function atualizarExposicao($conn)
     $resultado = mysqli_query($conn, $query);
 
     if ($resultado) {
-      echo "Exposição atualizada com sucesso!";
-      header("location: inicial_curador.php");
+      header("Location: inicial_curador.php");
     } else {
       echo "Erro ao atualizar exposição: " . mysqli_error($conn);
     }

@@ -63,7 +63,7 @@ $obras = todos($conn, $tabela);
               <div class="col">
                 <div class="card h-100" id="card">
                   <a href="descricao_obra.php?id_Obras=<?php echo $obra['id_Obras']; ?>&origem=galeria"><img
-                      src="<?php echo $obra['imagem']; ?>" class="img-fluid " alt="<?php echo $obra['LongaDesc']; ?>"></a>
+                      src="<?php echo $obra['imagem']; ?>" class="img-fluid" alt="<?php echo $obra['LongaDesc']; ?>"></a>
                   <div class="card-body">
                     <h2 class="card-title">
                       <?php echo $obra['nome_obra']; ?>
@@ -81,20 +81,9 @@ $obras = todos($conn, $tabela);
         <?php } ?>
       <?php endif; ?>
     </div>
-    <!-- === FOOTER === -->
-    <footer class="footer">
-      <p class="footer__title">ARCEBLE</p>
-      <div class="footer__social">
-        <a href="#" class="footer__icon" aria-label="GitHub"><i class='bx bxl-github'></i></a>
-        <a href="#" class="footer__icon" aria-label="LinkedIn"><i class='bx bxl-linkedin-square'></i></a>
-        <a href="#" class="footer__icon" aria-label="WhatsApp"><i class='bx bxl-whatsapp'></i></a>
-        <a href="#" class="footer__icon" aria-label="Facebook"><i class='bx bxl-facebook-circle'></i></a>
-        <a href="#" class="footer__icon" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
-      </div>
-      <p>&copy; 2023 ARCEBLE. Todos os direitos reservados.</p>
-    </footer>
-
   </center>
+
+  <?php require_once "../footer.php"; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
