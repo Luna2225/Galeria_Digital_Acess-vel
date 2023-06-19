@@ -48,9 +48,9 @@
           <div class="card-body">
             <h3>
               <span class="title-sobre">ARCEBLE</span><br>
-              é uma galeria virtual onde seu
-              grande diferencial é a acessibilidade, a
-              galeria de artes está sendo desenvolvida
+              É uma contrubuição de acessibilidade na
+              web, seu grande diferencial é a acessíbilidade,
+              a galeria de artes foi desenvolvida
               de forma a permitir que as pessoas com
               necessidades especiais possam
               compreender as obras e as exposições de

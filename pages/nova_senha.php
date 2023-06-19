@@ -5,7 +5,7 @@
 $host = 'localhost';
 $dbName = 'galeria';
 $username = 'root';
-$password = '99323592';
+$password = '81336840';
 
 try {
     // Estabeleça a conexão com o banco de dados
