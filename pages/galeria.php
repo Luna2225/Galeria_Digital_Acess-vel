@@ -48,7 +48,7 @@ $obras = todos($conn, $tabela);
 
   </nav>
 
-  <center>
+  <center class="bg1">>
 
     <!-- === OBRAS FAVORITAS === -->
     <div class="container-fluid">

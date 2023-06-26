@@ -41,7 +41,7 @@
         </div>
     </nav>
 
-    <center>
+    <center  class="bg1">
         <div class="container-fluid">
             <form class="contact__form" method="post">
                 <h2 class="section">Contato</h2>

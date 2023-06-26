@@ -40,7 +40,7 @@
     </div>
   </nav>
 
-  <center>
+  <center class="bg1">
     <div class="container-fluid">
       <div class="row" id="sobre">
 

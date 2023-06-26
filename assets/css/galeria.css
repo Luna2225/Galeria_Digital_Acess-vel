@@ -121,3 +121,8 @@ a {
 #button {
   font-weight: bold;
 }
+.bg1{
+  display:flex;
+  min-height: 100vh;
+  flex: 1;
+}

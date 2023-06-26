@@ -47,9 +47,9 @@ $exposicoes = todos($conn, $tabela);
     </div>
   </nav>
 
-  <center>
+  <center class="bg1">
     <!-- === NOVOS EVENTOS === -->
-    <div class="container-fluid">
+    <div class="container-flui">
       <?php if (empty($exposicoes)): ?>
         <h1>Sem exposições cadastradas</h1>
       <?php else: ?>
