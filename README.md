@@ -1,3 +1,20 @@
+<div align="center">
+  <img width="300" src="assets/logo/logoarceble copy.png" alt="Arceble Logo">
+
+<h1>ARCEBLE</h1>
+O arceble é uma contrubuição de acessibilidade na web, seu grande diferencial é a acessíbilidade. A galeria de artes foi desenvolvida de forma a permitir que as pessoas com necessidades especiais possam compreender as obras e as exposições de forma que possam ter uma experiência mais proveitosa na internet.
+
+😉
+
+<a href="https://arceble.000webhostapp.com/index.php"><img alt="Visite nosso website" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/documentation/website_vector.svg"></a>
+
+
+
+
+---
+
+</div>
+
 # Galeria Digital Acessível
 
 Bem-vindo à Galeria Digital Acessível, um projeto dedicado a proporcionar uma experiência inclusiva para apreciação de obras de arte online, especialmente projetado para pessoas com deficiência visual. Este repositório contém o código-fonte e informações essenciais para o desenvolvimento e manutenção da Galeria Digital Acessível.
@@ -42,6 +59,6 @@ Agradecemos antecipadamente por sua contribuição!
 
 Se tiver dúvidas, sugestões ou problemas, sinta-se à vontade para entrar em contato conosco. Seu feedback é valioso para melhorarmos continuamente a Galeria Digital Acessível.
 
-**Email:** galeria.digital@email.com
+**Email:** galeria.digital.acessivel@gmail.com
 
 Apreciamos sua visita à Galeria Digital Acessível!
